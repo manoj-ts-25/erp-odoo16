@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="send_joining_email_wizard_view_form" model="ir.ui.view">
+        <field name="name">send.joining.email.wizard.view.form</field>
+        <field name="model">send.joining.email.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="partner_name"/>
+                        <field name="model" invisible="1"/>
+                        <field name="email_from"/>
+                        <field name="email_cc"/>
+                        <field name="subject" readonly="1"/>
+                        <field name="body_html" readonly="1" widget="html"/>
+                        <field name="template_id"/>
+                        <field name="attachment_ids" widget="many2many_binary"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="send_confirm_letter" string="Offer Letter" type="object" class="oe_highlight"
+                            data-hotkey="q"/>
+                    <button string="Cancel" class="btn btn-secondary" special="cancel" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

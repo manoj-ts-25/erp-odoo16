@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="group_hr_employee" model="res.groups">
+        <field name="name">HR Letters</field>
+        <field name="category_id" ref="base.module_category_human_resources_employees"/>
+    </record>
+</odoo>

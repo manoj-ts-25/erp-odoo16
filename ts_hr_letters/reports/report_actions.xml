@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- QWeb Reports Action for  -->
+        <record id="action_offer_letter_report_id" model="ir.actions.report">
+            <field name="name">Offer Letter</field>
+            <field name="model">wizard.offer.letter</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">ts_hr_letters.template_rpt_offer_letter_view</field>
+            <field name="report_file">ts_hr_letters.template_rpt_offer_letter_view</field>
+            <field name="print_report_name">'Offer Letter - %s' % (object.applicant_id.partner_name)</field>
+            <field name="binding_model_id" ref="model_wizard_offer_letter"/>
+            <field name="binding_type">report</field>
+        </record>
+
+<!--        <record id="action_offer_letter_report" model="ir.actions.report">-->
+<!--            <field name="name">Offer Letter</field>-->
+<!--            <field name="model">hr.applicant</field>-->
+<!--            <field name="report_type">qweb-pdf</field>-->
+<!--            <field name="report_name">ts_hr_letters.template_rpt_offer_letter_view</field>-->
+<!--            <field name="report_file">ts_hr_letters.template_rpt_offer_letter_view</field>-->
+<!--            <field name="print_report_name">'Offer Letter - %s' % (object.partner_name)</field>-->
+<!--            <field name="binding_model_id" ref="model_hr_applicant"/>-->
+<!--            <field name="binding_type">report</field>-->
+<!--        </record>-->
+
+<!--        <record id="action_appointment_letter_report" model="ir.actions.report">-->
+<!--            <field name="name">Appointment Letter</field>-->
+<!--            <field name="model">hr.employee</field>-->
+<!--            <field name="report_type">qweb-pdf</field>-->
+<!--            <field name="report_name">ts_hr_letters.template_rpt_appointment_letter_view</field>-->
+<!--            <field name="report_file">ts_hr_letters.template_rpt_appointment_letter_view</field>-->
+<!--            <field name="print_report_name">'Appointment Letter - %s' % (object.name)</field>-->
+<!--            <field name="binding_model_id" ref="model_hr_employee"/>-->
+<!--            <field name="binding_type">report</field>-->
+<!--        </record>-->
+
+        <record id="action_appointment_letter_report_wiz" model="ir.actions.report">
+            <field name="name">Appointment Letter</field>
+            <field name="model">wiz.salary.structure</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">ts_hr_letters.template_rpt_appointment_letter_view</field>
+            <field name="report_file">ts_hr_letters.template_rpt_appointment_letter_view</field>
+            <field name="print_report_name">'Appointment Letter - %s' % (object.employee_id.name)</field>
+            <field name="binding_model_id" ref="model_wiz_salary_structure"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_resignation_letter_report" model="ir.actions.report">
+            <field name="name">Resignation Acceptance Letter</field>
+            <field name="model">hr.employee</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">ts_hr_letters.template_rpt_resignation_letter_view</field>
+            <field name="report_file">ts_hr_letters.template_rpt_resignation_letter_view</field>
+            <field name="print_report_name">'Resignation Acceptance Letter - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="model_hr_employee"/>
+            <field name="binding_type">report</field>
+        </record>
+
+<!--        <record id="action_appraisal_letter_report" model="ir.actions.report">-->
+<!--            <field name="name">Appraisal Letter</field>-->
+<!--            <field name="model">hr.employee</field>-->
+<!--            <field name="report_type">qweb-pdf</field>-->
+<!--            <field name="report_name">ts_hr_letters.template_rpt_appraisal_letter_view</field>-->
+<!--            <field name="report_file">ts_hr_letters.template_rpt_appraisal_letter_view</field>-->
+<!--            <field name="print_report_name">'Appraisal Letter - %s' % (object.name)</field>-->
+<!--            <field name="binding_model_id" ref="model_hr_employee"/>-->
+<!--            <field name="binding_type">report</field>-->
+<!--        </record>-->
+
+        <record id="action_appraisal_letter_report_id" model="ir.actions.report">
+            <field name="name">Appraisal Letter</field>
+            <field name="model">wiz.appraisal.letter</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">ts_hr_letters.template_rpt_appraisal_letter_view</field>
+            <field name="report_file">ts_hr_letters.template_rpt_appraisal_letter_view</field>
+            <field name="print_report_name">'Appraisal Letter - %s' % (object.employee_id.name)</field>
+            <field name="binding_model_id" ref="model_wiz_appraisal_letter"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_experience_letter_report" model="ir.actions.report">
+            <field name="name">Relieving Cum Experience Letter</field>
+            <field name="model">hr.employee</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">ts_hr_letters.template_rpt_experience_letter_view</field>
+            <field name="report_file">ts_hr_letters.template_rpt_experience_letter_view</field>
+            <field name="print_report_name">'Relieving Cum Experience Letter - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="model_hr_employee"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_promotion_letter_report_id" model="ir.actions.report">
+            <field name="name">Promotion Letter</field>
+            <field name="model">hr.employee</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">ts_hr_letters.template_rpt_promotion_letter_view</field>
+            <field name="report_file">ts_hr_letters.template_rpt_promotion_letter_view</field>
+            <field name="print_report_name">'Promotion Letter - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="model_hr_employee"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="custom_action_report_layout_preview" model="ir.actions.report">
+            <field name="name">Report Layout Preview</field>
+            <field name="model">res.company</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">ts_hr_letters.custom_preview_layout_report</field>
+            <field name="report_file">ts_hr_letters.custom_preview_layout_report</field>
+            <field name="binding_model_id" ref="model_res_company"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="custom_action_report_external_preview" model="ir.actions.report">
+            <field name="name">Preview External Report</field>
+            <field name="model">res.company</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">ts_hr_letters.custom_preview_external_report</field>
+            <field name="report_file">ts_hr_letters.custom_preview_external_report</field>
+            <field name="binding_model_id" ref="model_res_company"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

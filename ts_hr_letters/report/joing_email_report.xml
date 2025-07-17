@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Paper Format -->
+    <record id="paperformat_custom_joining_letter" model="report.paperformat">
+        <field name="name">Joining Letter</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">40</field>
+        <field name="margin_bottom">30</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">35</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <!-- Report Action -->
+    <record id="action_pdf_report_joining_letter" model="ir.actions.report">
+        <field name="name">Joining Letter Report</field>
+        <field name="model">hr.applicant</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ts_hr_letters.joining_letter_pdf_report</field>
+        <field name="report_file">ts_hr_letters.joining_letter_pdf_report</field>
+        <field name="print_report_name">'Joining Letter - %s' % object.name</field>
+        <field name="binding_model_id" ref="model_hr_applicant"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="ts_hr_letters.paperformat_custom_joining_letter"/>
+    </record>
+
+    <!-- Custom Layout Template -->
+    <template id="joining_letter_layout">
+        <t t-name="ts_hr_letters.joining_letter_layout">
+            <html>
+                <head>
+                    <meta charset="utf-8"/>
+                    <meta name="viewport" content="initial-scale=1"/>
+                    <title>Joining Letter</title>
+                    <style>
+                        body {
+                        font-family: Arial, sans-serif;
+                        margin: 0;
+                        padding: 0;
+                        }
+                        .header {
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        height: 70px;
+                        border-bottom: 1px solid #ddd;
+                        padding: 10px 15px;
+                        background: white;
+                        z-index: 1000;
+                        }
+                        .footer {
+                        position: fixed;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                        height: 60px;
+                        border-top: 1px solid #ddd;
+                        padding: 10px 15px;
+                        background: white;
+                        font-size: 11px;
+                        text-align: center;
+                        }
+                        .content {
+                        margin-top: 90px;
+                        margin-bottom: 80px;
+                        padding: 0 15px;
+                        }
+                        @page {
+                        margin: 0;
+                        size: A4;
+                        }
+                        .o_boxed_footer {
+                        border-top: 1px solid #ddd;
+                        padding-top: 10px;
+                        }
+                        .text-center {
+                        text-align: center;
+                        }
+                        .text-muted {
+                        color: #666;
+                        font-size: 10px;
+                        }
+                        .page-info {
+                        font-size: 10px;
+                        margin: 5px 0;
+                        }
+                        /* Global styling for all strong tags */
+                        strong {
+                        color: #2E7D32;
+                        font-weight: bold;
+                        }
+
+                        /* Alternative: You can use different colors for different sections */
+                        .content strong {
+                        color: #1976D2;
+                        }
+
+                        .header strong {
+                        color: #D32F2F;
+                        }
+
+                        /* Or use a specific class for colored strong tags */
+                        .highlight {
+                        color: #FF5722;
+                        font-weight: bold;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <!-- Header -->
+                    <div class="header">
+                        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                            <div style="flex: 1;">
+                                <t t-if="company.logo">
+                                    <img t-att-src="image_data_uri(company.logo)"
+                                         style="max-height: 40px; max-width: 100px;"/>
+                                </t>
+                            </div>
+                            <div style="flex: 2; text-align: left;">
+                                <div style="font-size: 16px; font-weight: bold;" t-field="company.name"/>
+                                <div style="font-size: 12px; margin-top: 5px;">
+                                    <t t-if="company.partner_id.street">
+                                        <span t-field="company.partner_id.street"/>
+                                        <br/>
+                                    </t>
+                                    <t t-if="company.partner_id.city">
+                                        <span t-field="company.partner_id.city"/>
+                                    </t>
+                                    <t t-if="company.partner_id.zip">
+                                        <span t-field="company.partner_id.zip"/>
+                                    </t>
+                                    <br/>
+                                    <t t-if="company.partner_id.state_id">
+                                        <span t-field="company.partner_id.state_id.name"/>
+                                    </t>
+                                    <t t-if="company.partner_id.country_id">
+                                        ,
+                                        <span t-field="company.partner_id.country_id.name"/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="text-align: right; margin-top: 10px;">
+                            <div style="font-size: 12px;">
+                                <strong>Date:</strong>
+                                <span t-esc="current_datetime"/>
+                            </div>
+                            <div style="font-size: 12px;">
+                                <strong>User:</strong>
+                                <span t-esc="user.name"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer with Pager -->
+                    <div t-attf-class="footer o_boxed_footer o_company_#{company.id}_layout">
+                        <div class="text-center">
+                            <!-- Company Report Footer -->
+                            <div t-field="company.report_footer"/>
+
+                            <!-- Contact Information -->
+                            <div style="margin: 5px 0;">
+                                <t t-if="company.phone">
+                                    <span t-field="company.phone"/>
+                                </t>
+                                <t t-if="company.email">
+                                    |
+                                    <span t-field="company.email"/>
+                                </t>
+                                <t t-if="company.website">
+                                    |
+                                    <span t-field="company.website"/>
+                                </t>
+                            </div>
+
+                            <!-- Page Numbers for PDF -->
+                            <div t-if="report_type == 'pdf'" class="page-info">
+                                Page:
+                                <span class="page"/>
+                                /
+                                <span class="topage"/>
+                            </div>
+
+                            <!-- System Generated Message -->
+                            <div style="margin-top: 5px; font-size: 15px;">
+                                <em>This is a system generated report hence doesn't require any signature.</em>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="content">
+                        <t t-raw="0"/>
+                    </div>
+                </body>
+            </html>
+        </t>
+    </template>
+
+    <!-- Main QWeb Template -->
+    <template id="joining_letter_pdf_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="ts_hr_letters.joining_letter_layout">
+                    <t t-set="company" t-value="o.company_id"/>
+                    <t t-set="report_type" t-value="'pdf'"/>
+                    <t t-set="display_name_in_footer" t-value="True"/>
+
+                    <!-- Main Body Content -->
+                    <div style="font-size: 13px; line-height: 1.6;">
+
+                        <!-- Document Title -->
+                        <h2 style="text-align: center; font-weight: bold; margin: 30px 0 40px 0; text-transform: uppercase; font-size: 18px;">
+                            OFFER LETTER
+                        </h2>
+
+                        <!-- Candidate Information -->
+                        <div style="margin-bottom: 30px;">
+                            <p style="margin: 8px 0;">
+                                Name:
+                                <strong t-field="o.partner_name"/>
+                            </p>
+                            <p style="margin: 8px 0;">
+                                Position Offered:
+                                <strong t-field="o.job_id.name"/>
+                            </p>
+                        </div>
+
+                        <!-- Letter Content -->
+                        <div style="text-align: justify; line-height: 1.8;">
+                            <p style="margin: 15px 0;">
+                                We are pleased to offer you an appointment in our company as
+                                <strong>
+                                    <span t-field="o.job_id.name"/>
+                                </strong>
+                                operating out of our office.
+                                Your employment with us will be governed by terms and conditions referred to in
+                                Annexure-1, 2 and 3.
+                            </p>
+
+                            <p style="margin: 15px 0;">
+                                <t t-if="o.department_id.manager_id.name">
+                                    Your reporting manager will be
+                                    <strong>
+                                        <span t-field="o.department_id.manager_id.name"/>
+                                    </strong>
+                                    .
+                                </t>
+                                <t t-else="">
+                                    Your reporting manager will be assigned during your onboarding process.
+                                </t>
+                                Further details regarding your compensation, responsibilities, and benefits will be
+                                provided in your onboarding documents.
+                            </p>
+
+                            <p style="margin: 15px 0;">
+                                We are expecting you to join us on
+                                <strong>
+                                    <t t-if="o.date_open">
+                                        <span t-field="o.date_open"
+                                              t-options="{'widget': 'date', 'format': 'MMM dd, yyyy'}"/>
+                                    </t>
+                                    <t t-else="">
+                                        Oct 04, 2023
+                                    </t>
+                                </strong>
+                                .
+                                The offer will be considered void thereafter, unless an extension is granted in writing.
+                                Please submit all necessary documents prior to your joining date.
+                            </p>
+
+                            <p style="margin: 15px 0;">
+                                We are confident that you will make significant contributions to our organization,
+                                and we look forward to working with you.
+                            </p>
+
+                            <p style="margin: 15px 0;">
+                                This offer is contingent upon successful completion of background verification,
+                                reference checks, and submission of all required documentation.
+                            </p>
+
+                            <p style="margin: 15px 0;">
+                                Please confirm your acceptance of this offer by signing and returning a copy of this
+                                letter within 7 days of receipt.
+                            </p>
+
+                            <p style="margin: 15px 0;">
+                                Please confirm your acceptance of this offer by signing and returning a copy of this
+                                letter within 7 days of receipt.
+                            </p>
+
+                            <p style="margin: 15px 0;">
+                                Please confirm your acceptance of this offer by signing and returning a copy of this
+                                letter within 7 days of receipt.
+                            </p>
+
+                            <p style="margin: 15px 0;">
+                                Please confirm your acceptance of this offer by signing and returning a copy of this
+                                letter within 7 days of receipt.
+                            </p>
+
+                            <p style="margin: 15px 0;">
+                                Please confirm your acceptance of this offer by signing and returning a copy of this
+                                letter within 7 days of receipt.
+                            </p>
+
+                            <p style="margin: 15px 0;">
+                                Please confirm your acceptance of this offer by signing and returning a copy of this
+                                letter within 7 days of receipt.
+                            </p>
+
+                            <p style="margin: 15px 0;">
+                                Please confirm your acceptance of this offer by signing and returning a copy of this
+                                letter within 7 days of receipt.
+                            </p>
+
+                            <p style="margin: 15px 0;">
+                                Please confirm your acceptance of this offer by signing and returning a copy of this
+                                letter within 7 days of receipt.
+                            </p>
+
+                            <p style="margin: 15px 0;">
+                                Please confirm your acceptance of this offer by signing and returning a copy of this
+                                letter within 7 days of receipt.
+                            </p>
+
+                        </div>
+
+                        <!-- Signature Section -->
+                        <div style="margin-top: 60px;">
+                            <p style="margin: 40px 0 10px 0;">Sincerely,</p>
+                            <p style="margin: 10px 0;">
+                                <strong>Authority Signatory</strong>
+                                <br/>
+                                <span t-field="o.company_id.name"/>
+                            </p>
+                        </div>
+
+                        <!-- Candidate Acceptance Section -->
+                        <div style="margin-top: 80px; page-break-inside: avoid; border-top: 1px solid #ddd; padding-top: 20px;">
+                            <h4 style="margin-bottom: 20px;">CANDIDATE ACCEPTANCE</h4>
+                            <p style="margin: 10px 0;">
+                                I,<span t-field="o.partner_name"/>, accept the above offer and agree to join on the
+                                specified date.
+                            </p>
+                            <div style="margin-top: 40px; display: flex; justify-content: space-between;">
+                                <div>
+                                    <p>Candidate Signature: _____________________</p>
+                                </div>
+                                <div>
+                                    <p>Date: _____________________</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

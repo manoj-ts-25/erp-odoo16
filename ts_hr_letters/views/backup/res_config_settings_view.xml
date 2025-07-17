@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+           <field name="name">res.config.settings.view.form.inherit.hr.letters</field>
+           <field name="model">res.config.settings</field>
+           <field name="priority" eval="45"/>
+           <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+           <field name="arch" type="xml">
+               <xpath expr="//div[hasclass('settings')]" position="inside">
+                   <div class="app_settings_block icon d-none d-md-block" data-string="HR Letters" string="HR Letters" data-key="ts_hr_letters"
+                        style="background : url('/ts_hr_letters/static/description/icon.png') no-repeat center; background-size:contain;">
+                        <h2>HR Letters</h2>
+                        <div class="row mt16 o_settings_container" id="hr_letters">
+                            <div class="col-lg-6 col-12 o_setting_box">
+                                <field name="company_id" invisible="1"/>
+                                <div class="o_setting_right_pane">
+                                    <field name="company_name" class="fw-bold"/>
+                                    <br/>
+                                    <field name="company_informations" class="text-muted" style="width: 90%;"/>
+                                    <br/>
+                                    <button name="open_company" icon="fa-arrow-right" type="object" string="Update Info" class="btn-link"/>
+                                </div>
+                                <br/>
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Document Layout</span>
+                                    <span class="fa fa-lg fa-building-o" title="Values set here are company-specific." aria-label="Values set here are company-specific." groups="base.group_multi_company" role="img"/>
+                                    <div class="text-muted">
+                                        Choose the layout of your documents.......
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt16" groups="base.group_no_one">
+                                            <label for="external_letter_layout_id" string="Letters Layout" class="col-3 col-lg-3 o_light_label"/>
+                                            <field name="external_letter_layout_id" domain="[('type','=', 'qweb')]"/>
+                                        </div>
+                                        <div class="mt8">
+                                            <button name="%(ts_hr_letters.custom_action_base_document_layout_configurator)d" string="Configure Document Layout" type="action" class="oe_link" icon="fa-arrow-right"/>
+                                            <button name="edit_custom_external_header" string="Edit Layout" type="object" class="oe_link" groups="base.group_no_one"/>
+                                            <button name="%(ts_hr_letters.custom_action_report_external_preview)d" string="Preview Document" type="action" class="oe_link" groups="base.group_no_one"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                   </div>
+               </xpath>
+<!--               <xpath expr="//div[hasclass('settings')]" position="inside">-->
+<!--                   <div class="app_settings_block icon d-none d-md-block" data-string="Salary Structure" string="Salary Structure" data-key="salary_key"-->
+<!--                        style="background : url('/ts_hr_letters/static/description/icon.png') no-repeat center; background-size:contain;">-->
+<!--                        <h2>Salary Structure</h2>-->
+<!--                        <div class="row mt16 o_settings_container" id="salary">-->
+<!--                            <div class="col-lg-6 col-12 o_setting_box">-->
+<!--                                <div class="o_setting_right_pane">-->
+<!--                                    <div class="content-group">-->
+<!--                                        <div class="mt16" groups="base.group_no_one">-->
+<!--                                            <label for="country_id" string="Country" class="col-3 col-lg-3 o_light_label"/>-->
+<!--                                            <field name="country_id"/>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                   </div>-->
+<!--               </xpath>-->
+            </field>
+        </record>
+
+        <record id="action_hr_letters_configuration" model="ir.actions.act_window">
+            <field name="name">HR Letters Settings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="context">{'module' : 'ts_hr_letters'}</field>
+        </record>
+    </data>
+</odoo>

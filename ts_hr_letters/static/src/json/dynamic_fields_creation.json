@@ -1,0 +1,14 @@
+{
+   "india":{
+      "fields":[
+         {
+            "label":"Population",
+            "formula":"Total population of India"
+         },
+         {
+            "label":"Area",
+            "formula":"Total area of India"
+         }
+      ]
+   }
+}

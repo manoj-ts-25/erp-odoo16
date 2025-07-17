@@ -1,0 +1,282 @@
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.hr.letters</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="45"/>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('settings')]" position="inside">
+                    <div class="app_settings_block icon d-none d-md-block" data-string="HR Letters" string="HR Letters"
+                         data-key="ts_hr_letters"
+                         style="background : url('/ts_hr_letters/static/description/icon.png') no-repeat center; background-size:contain;">
+                        
+                        <div class="row mt16 o_settings_container" id="hr_letters">
+
+                            <div class="col-lg-6 col-12 o_setting_box">
+                                <h2>HR Letters</h2>
+                                <field name="company_id" invisible="1"/>
+                                <div class="o_setting_right_pane">
+                                    <field name="company_name" class="fw-bold"/>
+                                    <br/>
+                                    <field name="company_informations" class="text-muted" style="width: 90%;"/>
+                                    <br/>
+                                    <button name="open_company" icon="fa-edit" type="object" string="Update Info"
+                                            class="btn-link"/>
+                                </div>
+                                <br/>
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Document Layout</span>
+                                    <span class="fa fa-lg fa-building-o" title="Values set here are company-specific."
+                                          aria-label="Values set here are company-specific."
+                                          groups="base.group_multi_company" role="img"/>
+                                    <div class="text-muted">Choose the layout of your documents.......</div>
+                                    <div class="content-group">
+                                        <div class="mt16" groups="base.group_no_one">
+                                            <label for="external_letter_layout_id" string="Letters Layout" class="col-3 col-lg-3 o_light_label"/> 
+                                            <field name="external_letter_layout_id" domain="[('type','=', 'qweb')]"/>
+                                        </div>
+                                        <div class="mt8">
+                                            <button name="%(ts_hr_letters.custom_action_base_document_layout_configurator)d"
+                                                    string="Configure Document Layout" type="action" class="oe_link"
+                                                    icon="fa-edit"/>
+                                            <button name="edit_custom_external_header" string="Edit Layout"
+                                                    type="object" class="oe_link" groups="base.group_no_one"/>
+                                            <button name="%(ts_hr_letters.custom_action_report_external_preview)d"
+                                                    string="Preview Document" type="action" class="oe_link"
+                                                    groups="base.group_no_one"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Attachments</span>
+                                    <div class="text-muted">Upload official Attachments here</div>
+                                    <div class="content-group">
+                                        <div class="mt16" >
+<!--                                            <label for="office_attachment_ids" string="Official Attachments" class="col-3 col-lg-3 o_light_label"/>-->
+                                            <field name="office_attachment_ids" widget="many2many_binary" string="Attach a file" nolabel="1" colspan="2"/>
+                                        </div>
+<!--                                        <div class="mt8">-->
+<!--                                            -->
+<!--                                        </div>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <div>
+                                <h2>
+                                    Experience Letters
+                                </h2>
+                            </div>
+                            <div>
+                                <div class="row mt16 o_settings_container ">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <button name="edit_custom_experience_letter_template"
+                                                    string=" Edit Email Template"
+                                                    type="object" class="oe_link" groups="base.group_no_one"
+                                                    icon="fa-edit"/>
+                                            <details>
+                                                <summary>Edit PDF Report </summary>
+                                                <label for="resignation_cum_experience"
+                                                       string="RESIGNATION CUM EXPERIENCE LETTER {date = Today's Date, employee_name = Name of Employee, job_title = Job Title, company_name = Name of the Company, resignation_date = Date of Resignation, first_contract_date = Date of First Contract}"/>
+
+                                                <field name="resignation_cum_experience"
+                                                       t-att-value="resignation_cum_experience"
+                                                       class="col-12 h-100vh"/>
+                                            </details>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h2>
+                                        Resignation Letters Acceptance
+                                    </h2>
+                                </div>
+                                <div class="row mt16 o_settings_container">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <button name="edit_custom_resignation_letters"
+                                                    string="Edit Email Template "
+                                                    type="object" class="oe_link" groups="base.group_no_one"
+                                                    icon="fa-edit"/>
+                                            <details>
+                                                <summary>Edit PDF Report </summary>
+                                                <label for="resignation_acceptance"
+                                                       string="RESIGNATION ACCEPTANCE {date = Today's Date, employee_name = Name of Employee, job_title = Job Title, company_name = Name of the Company, resignation_date = Date of Resignation, first_contract_date = Date of First Contract}"/>
+                                                <field name="resignation_acceptance"
+                                                       t-att-value="resignation_acceptance"
+                                                       class="col-12"/>
+                                            </details>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+
+                                    <h2>
+                                        Promotion Letter
+                                    </h2>
+                                </div>
+                                <div class="row mt16 o_settings_container">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <button name="edit_custom_promotion_letters" string="Edit Email Template"
+                                                    type="object" class="oe_link" groups="base.group_no_one"
+                                                    icon="fa-edit"/>
+
+                                            <details>
+                                                <summary>Edit PDF Report </summary>
+                                                <label for="appraisal"
+                                                       string="Promotion{date = Today's Date, employee_name = Name of Employee, job_title = Job Title, company_name = Name of the Company, first_contract_date = Date of First Contract}"/>
+                                                <field name="appraisal" t-att-value="appraisal" class="col-12"/>
+                                            </details>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div>
+                                    <h2>
+                                        Appointment Letters
+                                    </h2>
+                                </div>
+                                <div class="row mt16 o_settings_container">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <button name="edit_custom_appointment_letters"
+                                                    string="Edit Email Template"
+                                                    type="object" class="oe_link" groups="base.group_no_one"
+                                                    icon="fa-edit"/>
+                                            <details>
+                                                <summary>Edit PDF Report </summary>
+
+                                                <label for="appointment"
+                                                       string="APPOINTMENT {date = Today's Date, employee_name = Name of Employee, job_title = Job Title, company_name = Name of the Company, first_contract_date = Date of First Contract}"/>
+                                                <field name="appointment" t-att-value="appointment" class="col-12"/>
+                                            </details>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h2>
+                                        Offer Letters
+                                    </h2>
+                                </div>
+                                <div class="row mt16 o_settings_container">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <button name="edit_custom_offer_letter_template"
+                                                    string="Edit  Email Template"
+                                                    type="object" class="oe_link" groups="base.group_no_one"
+                                                    icon="fa-edit"/>
+                                            <details>
+                                                <summary>Edit PDF Report </summary>
+                                                <label for="offer"
+                                                       string="OFFER {date = Today's Date, employee_name = Name of Employee, job_title = Job Title, company_name = Name of the Company, first_contract_date = Date of First Contract}"/>
+                                                <field name="offer" t-att-value="offer" class="col-12"/>
+                                            </details>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h2>
+                                        Promotion Letter
+                                    </h2>
+                                </div>
+
+
+                                <div class="row mt16 o_settings_container" id="offer_letter_id">
+                                    <div class="col-lg-6 col-12 o_setting_box">
+                                        <div>
+                                            <button name="appraisal_letters_edit" string="Edit Email Template"
+                                                    type="object" class="oe_link" groups="base.group_no_one"
+                                                    icon="fa-edit"/>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h2>
+                                        Joining Letter
+                                    </h2>
+                                </div>
+                                <div class="row mt16 o_settings_container" id="offer_letter_id">
+                                    <div class="col-lg-6 col-12 o_setting_box">
+                                        <div>
+
+                                            <button name="edit_joining_letter_mail_template"
+                                                    string="Edit Email Template"
+                                                    type="object" class="oe_link" groups="base.group_no_one"
+                                                    icon="fa-edit"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h2>
+                                        Send Document Email Template
+                                    </h2>
+                                </div>
+                                <div class="row mt16 o_settings_container" id="offer_letter_id">
+                                    <div class="col-lg-6 col-12 o_setting_box">
+                                        <div>
+                                            <button name="edit_send_document_email_template"
+                                                    string="Edit Email Template"
+                                                    type="object" class="oe_link" groups="base.group_no_one"
+                                                    icon="fa-edit"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h2>
+                                        ERP Creation Letter
+                                    </h2>
+                                </div>
+                                <div class="row mt16 o_settings_container" id="offer_letter_id">
+                                    <div class="col-lg-6 col-12 o_setting_box">
+                                        <div>
+
+
+                                            <button name="edit_erp_creation_mail_template"
+                                                    string="Edit Email Template"
+                                                    type="object" class="oe_link" groups="base.group_no_one"
+                                                    icon="fa-edit"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h2>
+                                        Mail Creation Template
+                                    </h2>
+                                </div>
+                                <div class="row mt16 o_settings_container" id="offer_letter_id">
+                                    <div class="col-lg-6 col-12 o_setting_box">
+                                        <div>
+
+                                            <button name="edit_mail_creation_template"
+                                                    string="Edit Email Template"
+                                                    type="object" class="oe_link" groups="base.group_no_one"
+                                                    icon="fa-edit"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+        <record id="action_hr_letters_configuration" model="ir.actions.act_window">
+            <field name="name">HR Letters Settings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="context">{'module' : 'ts_hr_letters'}</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--  Appointment Letter Table Wizard  -->
+    <record id="salary_structure_view_form" model="ir.ui.view">
+        <field name="name">wiz.salary.structure.view.form</field>
+        <field name="model">wiz.salary.structure</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id" readonly="1" invisible="1"/>
+                            <field name="wage"/>
+                            <field name="name"/>
+                            <field name="hra"/>
+                            <field name="ca"/>
+                            <field name="sa"/>
+                            <field name="gratuity_eligible"/>
+                            <field name="gratuity" attrs="{'readonly': [('gratuity_eligible', '=', False)]}"/>
+                             <field name="retention"/>
+                           
+                        </group>
+                        <group>
+                           
+                            <field name="pf_eligible"/>
+                            <field name="pf" attrs="{'readonly': [('pf_eligible', '=', False)]}"/>
+                            <field name="net_pay"/>
+                            <field name="esi" attrs="{'invisible': [('wage', '&gt;', 21000)]}"/>
+                            <field name="master_net_pay"/>
+                            <field name="tds"/>
+                            <field name="professional_tax"/>
+                            <field name="gross"/>
+                     
+                        </group>
+                    </group>
+                       <label for="display_salary_table" string="Display Salary Table in Letter"/> 
+                     <field name="display_salary_table"/>
+                </sheet>
+                <footer>
+                    <button name="confirm" string="Confirm Letter" type="object" class="oe_highlight" data-hotkey="q"/>
+                    <button string="Cancel" class="btn btn-secondary" special="cancel" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Wizard action record -->
+    <record id="action_salary_structure_id" model="ir.actions.act_window">
+        <field name="name">Appointment Letter</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">wiz.salary.structure</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="salary_structure_view_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <!--  Appraisal Letter Table Wizard  -->
+    <record id="appraisal_view_form" model="ir.ui.view">
+        <field name="name">wiz.appraisal.letter.view.form</field>
+        <field name="model">wiz.appraisal.letter</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id" readonly="1" invisible="1"/>
+                            <field name="wage"/>
+                            <field name="basic"/>
+                            <field name="hra"/>
+                            <field name="ca"/>
+                            <field name="sa"/>
+                            <field name="gratuity_eligible"/>
+                            <field name="gratuity" attrs="{'readonly': [('gratuity_eligible', '=', False)]}"/>
+                            <field name="retention"/>
+                            
+                        </group>
+                        <group>
+                            <field name="pf_eligible"/>
+                            <field name="pf" attrs="{'readonly': [('pf_eligible', '=', False)]}"/>
+                            <field name="net_pay"/>
+                            <field name="esi" attrs="{'invisible': [('wage', '&gt;', 21000)]}"/>
+                            <field name="master_net_pay"/>
+                            <field name="tds"/>
+                            <field name="professional_tax"/>
+                            <field name="gross"/>
+                            
+                        </group>
+                    </group>
+                    <group>
+                        <field name="display_salary_table" string="Display Salary table in PDF"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_appraisal_letter" string="Confirm Letter" type="object" class="oe_highlight" data-hotkey="q"/>
+                    <button string="Cancel" class="btn btn-secondary" special="cancel" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Wizard action record -->
+    <record id="action_appraisal_letter_id" model="ir.actions.act_window">
+        <field name="name">Appraisal Letter</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">wiz.appraisal.letter</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="appraisal_view_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <!--  Offer Letter Table Wizard  -->
+    <record id="wizard_offer_letter_view_form" model="ir.ui.view">
+        <field name="name">wizard.offer.letter.view.form</field>
+        <field name="model">wizard.offer.letter</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="application_id" readonly="1" invisible="1"/>
+                            <field name="wage"/>
+                            <field name="basic"/>
+                            <field name="hra"/>
+                            <field name="ca"/>
+                            <field name="sa"/>
+                            <field name="gratuity_eligible"/>
+                            <field name="gratuity" attrs="{'readonly': [('gratuity_eligible', '=', False)]}"/>
+                            <field name="retention"/>
+                            <field name="pf_eligible"/>
+                            <field name="pf" attrs="{'readonly': [('pf_eligible', '=', False)]}"/>
+                            <field name="net_pay"/>
+                            <field name="esi" attrs="{'invisible': [('wage', '&gt;', 21000)]}"/>
+                            <field name="master_net_pay"/>
+                            <field name="tds"/>
+                            <field name="professional_tax"/>
+                            <field name="gross"/>
+                            <field name="display_salary_table"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_offer_letter" string="Confirm Letter" type="object" class="oe_highlight" data-hotkey="q"/>
+                    <button string="Cancel" class="btn btn-secondary" special="cancel" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Wizard action record -->
+    <record id="action_wizard_offer_letter_id" model="ir.actions.act_window">
+        <field name="name">Offer Letter</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">wizard.offer.letter</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="wizard_offer_letter_view_form"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

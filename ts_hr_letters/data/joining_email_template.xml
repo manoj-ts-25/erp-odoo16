@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="email_template_sent_joining_email" model="mail.template">
+        <field name="name">Test Joining Letter</field>
+        <field name="model_id" ref="ts_hr_letters.model_hr_applicant"/>
+        <field name="subject">Offer Letter - {{ object.partner_name }}, {{ object.job_id.name }}</field>
+        <field name="lang">{{ object.create_uid.lang }}</field>
+        <field name="email_from">{{ user.email }}</field>
+        <field name="email_to">{{ object.email_from }}</field>
+        <field name="report_template" ref="ts_hr_letters.action_pdf_report_joining_letter"/>
+        <field name="report_name">Joining Letter {{object.partner_name}}</field>
+        <field name="body_html" type="html">
+            <table border="0" cellpadding="0" cellspacing="0" width="590"
+                   style="background-color: white; border-collapse: collapse; margin-left: 20px;">
+                <tr>
+                    <td valign="top" style="padding: 0px 10px;">
+                        <div style="font-size: 15px; margin: 0px; padding: 0px;">
+                            <br/>
+                            Dear
+                            <strong>
+                                <t t-out="object.partner_name or ''"/>
+                            </strong>
+                            ,
+                            <br/>
+                            <br/>
+                            Congratulations! We are delighted to offer you the position of
+                            <strong>
+                                <t t-out="object.job_id.name or ''"/>
+                            </strong>
+                            at
+                            <strong>
+                                <t t-out="object.company_id.name or ''"/>
+                            </strong>
+                            .
+                            <br/>
+                            <br/>
+                            Please find your official joining letter attached to this email. This letter includes
+                            all relevant details about your role, compensation, and terms of employment.
+                            <br/>
+                            <br/>
+                            We are excited to have you join our team and look forward to your contributions.
+                            If you have any questions or need further information, please feel free to reach out.
+                            <br/>
+                            <br/>
+                            Once again, welcome aboard!
+                            <br/>
+                            <br/>
+                            Best Regards,
+                            <br/>
+                            <strong>
+                                <t t-out="user.name or ''"/>
+                            </strong>
+                            <br/>
+                            <t t-out="object.company_id.name or ''"/>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </field>
+    </record>
+</odoo>

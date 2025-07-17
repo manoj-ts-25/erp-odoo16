@@ -1,0 +1,760 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <!--  Offer Letter  -->
+        <template id="template_rpt_offer_letter_view">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="obj">
+<!--                    <t t-call="ts_hr_letters.external_layout">-->
+                        <div class="page">
+                            <div>
+                                <div class="col-12">
+                                    <div style="border: 0px solid red !important;">
+                                        <div style="font-size:17px; padding-right: 5px; height: 14px; text-align: right;">
+                                            Date: <strong>
+                                                        <t t-set="formatted_date" t-value="context_timestamp(datetime.datetime.now()) and context_timestamp(datetime.datetime.now()).strftime('%d %b %Y') or ''"/>
+                                                        <t t-esc="formatted_date"/>
+                                                  </strong>
+                                        </div>
+                                    </div>
+                                    <br/><br/>
+                                    <div><div style="font-size:25px; text-align: center;"><b><u>OFFER LETTER</u></b></div></div><br/><br/>
+                                    <div>
+                                        <div style="font-size:17px; padding-right: 5px;">Dear <strong><span t-esc="obj.application_id.partner_name"/>,</strong></div><br/><br/>
+                                        <div style="font-size:17px; padding-right: 5px;">
+                                            <p>We are thrilled to extend an offer for the position of  <strong><span t-esc="obj.application_id.job_id.name"/></strong> at <strong><span t-esc="user.company_id.name"/></strong> We have carefully reviewed your qualifications and believe that your skills and experience align perfectly with our team's requirements.</p>
+                                            <p>Your gross annual CTC for this role will be <strong><span t-esc="int(obj.application_id.salary_proposed) * 12"/></strong> INR.</p>
+                                            <p>We anticipate your commencement of employment with us on
+                                                <strong>
+                                                    <t t-set="formatted_date" t-value="obj.application_id.availability and obj.application_id.availability.strftime('%d %b %Y') or ''"/>
+                                                    <t t-esc="formatted_date"/>
+                                                </strong>. The initial phase will include a probationary period lasting for four months.During this time you will receive advice, training and guidance to help you become familiar with and competent in performing the work you have been appointed to do. No holidays in this time period are allowed other than Sundays and Public Holidays.</p>
+                                            <p>Following the successful completion of this period, you will be formally presented with your Appointment Letter. Your primary work location will be our <strong><span style="font-size: 15px; font-weight: bold;"><t t-out="obj.application_id.job_id.address_id.city or ''"/></span></strong> office.</p>
+                                            <p>Throughout your tenure with us, you will be expected to adhere to the company's service rules, regulations, and policies. Please note that all applicable government taxes such as PF/TDS or any other deductions mandated by the government will be deducted from your Gross CTC.</p>
+                                            <p>Additionally, you are required to furnish proof of investments, if any.</p>
+                                            <p>We are confident that your contribution will be invaluable to our team, and we eagerly anticipate your success in this role.</p>
+                                            <p>Welcome aboard, and we look forward to a fruitful association!</p>
+                                            <p>Yours sincerely,</p><br/><br/><br/>
+                                            <p><h5 class="mb-1"><b t-esc="user.name"/></h5></p>
+                                            <p>(Authorized Signatory)</p>
+                                            <p><span style="font-size: 15px; font-weight: bold;" t-esc="user.company_id.name"/></p><br/>
+                                        </div>
+                                    </div>
+                                    <br/><br/><br/><br/><br/><br/><br/>
+                                    <t t-if="obj.display_salary_table and int(float(obj.display_salary_table)) == True">
+                                        <div style="font-size:17px; padding-right: 5px; height: 14px;"><strong><u>Salary</u></strong></div><br/><br/>
+                                        <table style="border-collapse: collapse;width: 100%;">
+                                            <tbody>
+                                                <tr>
+                                                    <th style="border: 1px solid #dddddd;width:50%;text-align:left;padding: 5px 10px 10px;">Name</th>
+                                                    <td style="border: 1px solid #dddddd;width:50%; padding-left:20px;" colspan="2"><strong><span t-esc="obj.application_id.partner_name"/></strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <th style="border: 1px solid #dddddd;width:50%;text-align:left;padding: 5px 10px 10px;">Designation</th>
+                                                    <td style="border: 1px solid #dddddd;width:50%; padding-left:20px;" colspan="2"><strong><span t-esc="obj.application_id.job_id.name"/></strong></td>
+                                                </tr>
+                                                 <tr>
+                                                    <th style="border: 1px solid #dddddd;width:50%;text-align:left;padding: 5px 10px 10px;">Location</th>
+                                                    <td style="border: 1px solid #dddddd;width:50%; padding-left:20px;" colspan="2"><strong><span t-esc="obj.application_id.applicant_preferred_city_id.name"/></strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <th style="border: 1px solid #dddddd; text-align:left; padding: 5px 10px 10px;">Earnings</th>
+                                                    <th style="border: 1px solid #dddddd; padding-left:20px;">Per month</th>
+                                                    <th style="border: 1px solid #dddddd; padding-left:20px;">Per annum</th>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">Basic</td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.basic))"/></td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px;">
+                                                        <t t-set="basic_numeric" t-value="float(obj.basic)"/>
+                                                        <t t-set="monthly_basic" t-value="int(basic_numeric * 12)"/>
+                                                        <span t-esc="monthly_basic"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">HRA</td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.hra))"/></td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px;">
+                                                        <t t-set="hra_numeric" t-value="float(obj.hra)"/>
+                                                        <t t-set="monthly_hra" t-value="int(hra_numeric * 12)"/>
+                                                        <span t-esc="monthly_hra"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">Conveyance Allowances</td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(obj.ca)"/></td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(obj.ca) * 12"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">Special Allowances</td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.sa))"/></td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px;">
+                                                        <t t-set="sa_numeric" t-value="float(obj.sa)"/>
+                                                        <t t-set="monthly_sa" t-value="int(sa_numeric * 12)"/>
+                                                        <span t-esc="monthly_sa"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">Gross Salary</th>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px;"><strong><span t-esc="int(float(obj.gross))"/></strong></td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px;">
+                                                        <strong>
+                                                            <t t-set="gross_numeric" t-value="float(obj.gross)"/>
+                                                            <t t-set="monthly_gross" t-value="int(gross_numeric * 12)"/>
+                                                            <span t-esc="monthly_gross"/>
+                                                        </strong>
+                                                    </td>
+                                                </tr>
+                                                <t t-if="obj.pf_eligible and int(float(obj.pf_eligible)) == True">
+                                                    <tr>
+                                                        <td style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">PF</td>
+                                                        <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.pf))"/></td>
+                                                        <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.pf) * 12)"/></td>
+                                                    </tr>
+                                                </t>
+                                                <t t-if="int(float(obj.wage)) &lt;= 21000">
+                                                    <tr>
+                                                        <td style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">ESI</td>
+                                                        <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.esi))"/></td>
+                                                        <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.esi) * 12)"/></td>
+                                                    </tr>
+                                                </t>
+                                                <t t-if="obj.retention and int(float(obj.retention)) != 0">
+                                                     <tr>
+                                                        <td style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">Retention</td>
+                                                        <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.retention))"/></td>
+                                                        <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.retention) * 12)"/></td>
+                                                    </tr>
+                                                </t>
+                                                <t t-if="obj.gratuity_eligible and int(float(obj.gratuity_eligible)) == True">
+                                                     <tr>
+                                                        <td style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">Gratuity</td>
+                                                        <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.gratuity))"/></td>
+                                                        <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.gratuity) * 12)"/></td>
+                                                     </tr>
+                                                </t>
+                                                <t t-if="obj.tds and int(float(obj.tds)) != 0">
+                                                    <tr>
+                                                        <td style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">TDS</td>
+                                                        <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.tds))"/></td>
+                                                        <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.tds) * 12)"/></td>
+                                                    </tr>
+                                                </t>
+                                                <t t-if="obj.professional_tax and int(float(obj.professional_tax)) != 0">
+                                                    <tr>
+                                                        <td style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">Professional Tax</td>
+                                                        <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.professional_tax))"/></td>
+                                                        <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.professional_tax) * 12)"/></td>
+                                                    </tr>
+                                                </t>
+                                                 <tr>
+                                                    <th style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">Net Pay Salary</th>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px;"><strong><span t-esc="int(float(obj.master_net_pay))"/></strong></td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px;">
+                                                        <strong>
+                                                            <t t-set="net_pay_numeric" t-value="float(obj.master_net_pay)"/>
+                                                            <t t-set="monthly_net_pay" t-value="int(net_pay_numeric * 12)"/>
+                                                            <span t-esc="monthly_net_pay"/>
+                                                        </strong>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <br/>
+                                        <div style="font-size:17px; padding-right: 5px; height: 14px;"><strong>Note:</strong></div><br/><br/>
+                                        <div style="font-size:17px; padding-right: 5px; height: 14px; line-height: 1.5;">
+                                            <ul>
+                                                <li>HRA exemption as per the legal laws.</li>
+                                                <li>All amounts indicated are in Indian rupees per month.</li>
+                                                <li>CTC per anum is rounded off to the nearest thousand.</li>
+                                                <li>All the above benefits are as per the company's policies and are subject to change from time to time.</li>
+                                                <li>All government taxes i.e. PF/TDS/ESI will be deducted from the Gross CTC.</li>
+                                                <li>The retention amount will be credited to your account after a year has been completed, but if you leave the service before the year has come to an end, it will be lapsed.</li>
+                                            </ul>
+                                        </div>
+                                        <br/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                </t>
+<!--                    </t>-->
+            </t>
+        </template>
+
+        <!--  Appointment Letter  -->
+        <template id="template_rpt_appointment_letter_view">
+            <t t-foreach="docs" t-as="obj">
+                <t t-call="web.html_container">
+<!--                    <t t-call="ts_hr_letters.external_layout">-->
+                        <div class="page">
+                            <div>
+                                <div class="col-12">
+                                    <div style="border: 0px solid red !important;">
+                                        <div style="font-size:17px; padding-right: 5px; height: 14px; text-align: right;">
+                                            Date: <strong>
+                                                        <t t-set="formatted_date" t-value="context_timestamp(datetime.datetime.now()) and context_timestamp(datetime.datetime.now()).strftime('%d %b %Y') or ''"/>
+                                                        <t t-esc="formatted_date"/>
+                                                  </strong>
+                                        </div>
+                                    </div>
+                                    <div style="font-size:25px; text-align: center; padding-top: 15px;"><b><u>APPOINTMENT LETTER</u></b></div>
+                                    <br/><br/>
+                                    <div style="font-size:17px; padding-right: 5px; height: 14px;">Dear <strong><span t-esc="obj.employee_id.name"/>,</strong></div><br/><br/>
+                                    <div style="font-size:17px; padding-right: 5px; height: 14px;"><strong>Offer of Employment </strong></div><br/><br/>
+                                    <div style="font-size:17px; padding-right: 5px; height: 14px;">We are pleased to offer you the position of
+                                        <span style="font-size: 15px; font-weight: bold;" t-esc="obj.employee_id.job_id.name"/> with us here at
+                                        <span style="font-size: 15px; font-weight: bold;" t-esc="user.company_id.name"/>
+                                        where we hope you will enjoy your role and make a significant contribution to the success of the business.
+                                    </div><br/><br/><br/>
+                                    <ul style="display:flex; justify-content:space-between; list-style-type:none; border-top:2px solid #dedede; padding-left:0px; margin-bottom:0px;">
+                                        <li><p style="font-weight:700; padding-top: 10px;">Commencement Date</p></li>
+                                    </ul>
+                                    <p style="padding-top: 3px; padding-right: 5px; ">Your employment will commence on
+                                        <strong>
+                                            <t t-set="formatted_date" t-value="obj.employee_id.first_contract_date and obj.employee_id.first_contract_date.strftime('%d %b %Y') or ''"/>
+                                            <t t-esc="formatted_date"/>
+                                        </strong>
+                                    </p>
+                                    <br/><hr/>
+                                    <ul style="display:flex; justify-content:space-between; list-style-type:none; padding-left:0px; margin-bottom:0px;">
+                                        <li><p style="font-weight:700;"><strong><span t-esc="obj.employee_id.address_id.city"/></strong></p></li>
+                                    </ul>
+                                    <p style="padding-top: 3px; padding-right: 5px; ">You will be based in <strong><span t-esc="obj.employee_id.address_id.city"/></strong> but may be required to work at such other locations within the Delhi NCR region as reasonably determined by the needs of the business</p>
+                                    <br/><hr/>
+                                    <ul style="display:flex; justify-content:space-between; list-style-type:none; padding-left:0px; margin-bottom:0px;">
+                                        <li><p style="font-weight:700;">Position</p></li>
+                                    </ul>
+                                    <p style="padding-top: 3px; padding-right: 5px; "><strong><span t-esc="obj.employee_id.job_id.name"/></strong> reporting to the <strong><span t-esc="obj.employee_id.parent_id.name"/></strong></p>
+                                    <br/>
+                                    <hr/>
+                                    <ul style="display:flex; justify-content:space-between; list-style-type:none; padding-left:0px; margin-bottom:0px;">
+                                        <li><p style="font-weight:700;">Term</p></li>
+                                    </ul>
+                                    <p style="padding-top: 3px; padding-right: 5px;">This is a permanent position</p>
+                                    <p style="padding-top: 3px; padding-right: 5px;"><strong>Leaving the Company Norms</strong> -Employees cannot leave the Company without prior notice of at least <strong><span t-esc="obj.employee_id.job_id.notice_period"/></strong> months.<br/>
+                                        The Span for which an Employee has to work in the company, in order to become eligible for an experience letter is 6 months.
+                                    </p><br/>
+                                    <hr/>
+                                    <ul style="display:flex; justify-content:space-between; list-style-type:none; padding-left:0px; margin-bottom:0px;">
+                                        <li><p style="font-weight:700;">Leave Policy</p></li>
+                                    </ul>
+                                    <p style="padding-top: 3px; padding-right: 5px;">There will be a process of taking 12 Casual Leave in a year, and a maximum of 3 Casual Leave can be taken in a month. And 1 sick leave every month, which makes 12 days in a year. Sick leaves cannot be carried forward.</p>
+                                    <br/>
+                                    <hr/>
+                                    <ul style="display:flex; justify-content:space-between; list-style-type:none; padding-left:0px; margin-bottom:0px;">
+                                        <li><p style="font-weight:700;">Remuneration</p></li>
+                                    </ul>
+                                    <p style="padding-top: 3px; padding-right: 5px;">Your salary structure is as follows:</p>
+                                    <p style="padding-top: 3px; padding-right: 5px;">Total CTC provided <strong><span t-esc="int(float(obj.wage) * 12)"/></strong> annually.</p>
+                                    <p style="padding-top: 3px; padding-right: 5px;">A detailed CTC structure is enclosed as Exhibit A.</p>
+                                    <p style="padding-top: 3px; padding-right: 5px;"><strong>Statutory Deductions -</strong>The remuneration is subject to statutory deductions. Any statutory contribution by the company would be part of the CTC.  </p>
+                                    <br/>
+                                    <hr/>
+                                    <ul style="display:flex; justify-content:space-between; list-style-type:none; padding-left:0px; margin-bottom:0px;">
+                                        <li><p style="font-weight:700;">Hours of Work</p></li>
+                                    </ul>
+                                    <p style="padding-top: 3px; padding-right: 5px;"><span style="font-size: 15px; font-weight: bold;" t-esc="user.company_id.name"/> general hours of business are <b>10:00 AM to 7:00 PM</b>, From time to time you will be required to work reasonable additional hours or after hours when necessary to perform your duties.</p>
+                                    <br/>
+                                    <hr/>
+                                    <ul style="display:flex; justify-content:space-between; list-style-type:none; padding-left:0px; margin-bottom:0px;">
+                                        <li><p style="font-weight:700;">Privacy</p></li>
+                                    </ul>
+                                    <p style="padding-top: 3px; padding-right: 5px;">You are required to observe and uphold all of the Company’s privacy policies, non-disclosure agreements and procedures as implemented or varied from time to time. Collection, storage, access to and dissemination of employee personal information will be in accordance with the privacy legislation.</p>
+                                    <br/>
+                                    <hr/>
+                                    <ul style="display:flex; justify-content:space-between; list-style-type:none; padding-left:0px; margin-bottom:0px;">
+                                        <li><p style="font-weight:700;">Acceptance</p></li>
+                                    </ul>
+                                    <p style="padding-top: 3px; padding-right: 5px;">We request you to sign this offer as your acceptance.</p>
+                                    <p style="padding-top: 3px; padding-right: 5px;">Yours sincerely,</p>
+                                    <p style="padding-top: 120px;">(Authority Signatory)</p>
+                                    <p><span style="font-size: 15px; font-weight: bold;" t-esc="user.company_id.name"/></p>
+                                    <hr/><br/><br/>
+
+                                    <t t-if="obj.display_salary_table and int(float(obj.display_salary_table)) == True">
+                                        <p style="padding-top: 3px; padding-right: 5px;">Employee Name: ____<strong><span t-esc="obj.employee_id.name"/></strong>____</p>
+                                        <p style="padding-top: 3px; padding-right: 5px;">Signed: ____________</p>
+                                        <br/>
+                                        <div style="font-size:17px; padding-right: 5px; height: 14px;"><strong><u>Exhibit </u></strong></div><br/><br/>
+
+                                        <table style="border-collapse: collapse;width: 100%;">
+                                        <tbody>
+                                            <tr>
+                                                <th style="border: 1px solid #dddddd;width:50%;text-align:left;padding: 5px 10px 10px;">Name</th>
+                                                <td style="border: 1px solid #dddddd;width:50%; padding-left:20px;" colspan="2">- <strong><span t-esc="obj.employee_id.name"/></strong></td>
+                                            </tr>
+                                            <tr>
+                                                <th style="border: 1px solid #dddddd;width:50%;text-align:left;padding: 5px 10px 10px;">Designation</th>
+                                                <td style="border: 1px solid #dddddd;width:50%; padding-left:20px;" colspan="2">- <strong><span t-esc="obj.employee_id.job_id.name"/></strong></td>
+                                            </tr>
+                                             <tr>
+                                                <th style="border: 1px solid #dddddd;width:50%;text-align:left;padding: 5px 10px 10px;">Location</th>
+                                                <td style="border: 1px solid #dddddd;width:50%; padding-left:20px;" colspan="2">- <strong><span t-esc="obj.employee_id.work_location_id.name"/></strong></td>
+                                            </tr>
+                                            <tr>
+                                                <th style="border: 1px solid #dddddd; text-align:left; padding: 5px 10px 10px;">Earnings</th>
+                                                <th style="border: 1px solid #dddddd; padding-left:20px;">Per month</th>
+                                                <th style="border: 1px solid #dddddd; padding-left:20px;">Per annum</th>
+                                            </tr>
+                                            <tr>
+                                                <td style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">Basic</td>
+                                                <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.name))"/></td>
+                                                <td style="border: 1px solid #dddddd; padding-left:20px;">
+                                                    <t t-set="basic_numeric" t-value="float(obj.name)"/>
+                                                    <t t-set="monthly_basic" t-value="int(basic_numeric * 12)"/>
+                                                    <span t-esc="monthly_basic"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">HRA</td>
+                                                <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.hra))"/></td>
+                                                <td style="border: 1px solid #dddddd; padding-left:20px;">
+                                                    <t t-set="hra_numeric" t-value="float(obj.hra)"/>
+                                                    <t t-set="monthly_hra" t-value="int(hra_numeric * 12)"/>
+                                                    <span t-esc="monthly_hra"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">Conveyance Allowances</td>
+                                                <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(obj.ca)"/></td>
+                                                <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(obj.ca) * 12"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">Special Allowances</td>
+                                                <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.sa))"/></td>
+                                                <td style="border: 1px solid #dddddd; padding-left:20px;">
+                                                    <t t-set="sa_numeric" t-value="float(obj.sa)"/>
+                                                    <t t-set="monthly_sa" t-value="int(sa_numeric * 12)"/>
+                                                    <span t-esc="monthly_sa"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">Gross Salary</th>
+                                                <td style="border: 1px solid #dddddd; padding-left:20px;"><strong><span t-esc="int(float(obj.gross))"/></strong></td>
+                                                <td style="border: 1px solid #dddddd; padding-left:20px;">
+                                                    <strong>
+                                                        <t t-set="gross_numeric" t-value="float(obj.gross)"/>
+                                                        <t t-set="monthly_gross" t-value="int(gross_numeric * 12)"/>
+                                                        <span t-esc="monthly_gross"/>
+                                                    </strong>
+                                                </td>
+                                            </tr>
+                                            <t t-if="obj.pf_eligible and int(float(obj.pf_eligible)) == True">
+                                                <tr>
+                                                    <td style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">PF</td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px; align: center;"><span t-esc="int(float(obj.pf))"/></td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px; align: center;"><span t-esc="int(float(obj.pf) * 12)"/></td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="int(float(obj.wage)) &lt;= 21000">
+                                                <tr>
+                                                    <td style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">ESI</td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px; align: center;"><span t-esc="int(float(obj.esi))"/></td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px; align: center;"><span t-esc="int(float(obj.esi) * 12)"/></td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="obj.retention and int(float(obj.retention)) != 0">
+                                                <tr>
+                                                    <td style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">Retention</td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px; align: center;"><span t-esc="int(float(obj.retention))"/></td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px; align: center;"><span t-esc="int(float(obj.retention) * 12)"/></td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="obj.gratuity_eligible and int(float(obj.gratuity_eligible)) == True">
+                                                <tr>
+                                                    <td style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">Gratuity</td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px; align: center;"><span t-esc="int(float(obj.gratuity))"/></td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px; align: center;"><span t-esc="int(float(obj.gratuity) * 12)"/></td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="obj.tds and int(float(obj.tds)) != 0">
+                                                <tr>
+                                                    <td style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">TDS</td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.tds))"/></td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.tds) * 12)"/></td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="obj.professional_tax and int(float(obj.professional_tax)) != 0">
+                                                <tr>
+                                                    <td style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">Professional Tax</td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.professional_tax))"/></td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.professional_tax) * 12)"/></td>
+                                                </tr>
+                                            </t>
+                                            <tr>
+                                                <th style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">Net Pay Salary</th>
+                                                <td style="border: 1px solid #dddddd; padding-left:20px; align: center;"><strong><span t-esc="int(float(obj.master_net_pay))"/></strong></td>
+                                                <td style="border: 1px solid #dddddd; padding-left:20px; align: center;">
+                                                    <strong>
+                                                        <t t-set="net_pay_numeric" t-value="float(obj.master_net_pay)"/>
+                                                        <t t-set="monthly_net_pay" t-value="int(net_pay_numeric * 12)"/>
+                                                        <span t-esc="monthly_net_pay"/>
+                                                    </strong>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    </t>
+                                    <br/>
+                                    <div style="font-size:17px; padding-right: 5px; height: 14px;"><strong>Note:</strong></div><br/><br/>
+                                    <div style="font-size:17px; padding-right: 5px; height: 14px; line-height: 1.5;">
+                                        <ul>
+                                            <li>HRA exemption as per the legal laws.</li>
+                                            <li>All amounts indicated are in Indian rupees per month.</li>
+                                            <li>CTC per anum is rounded off to the nearest thousand.</li>
+                                            <li>All the above benefits are as per the company's policies and are subject to change from time to time.</li>
+                                            <li>All government taxes i.e. PF/TDS/ESI will be deducted from the Gross CTC.</li>
+                                            <li>The retention amount will be credited to your account after a year has been completed, but if you leave the service before the year has come to an end, it will be lapsed.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+<!--                    </t>-->
+                </t>
+            </t>
+        </template>
+
+        <!--  Resignation Acceptance Letter  -->
+        <template id="template_rpt_resignation_letter_view">
+            <t t-foreach="docs" t-as="obj">
+                <t t-call="web.html_container">
+                    <t t-call="ts_hr_letters.external_layout">
+                        <div class="page">
+                            <div class="col-12">
+                                <div style="border: 0px solid red !important;">
+                                    <div style="font-size:17px; padding-right: 5px; height: 14px; text-align: right;">
+                                        Date: <strong>
+                                                    <t t-set="formatted_date" t-value="context_timestamp(datetime.datetime.now()) and context_timestamp(datetime.datetime.now()).strftime('%d %b %Y') or ''"/>
+                                                    <t t-esc="formatted_date"/>
+                                              </strong>
+                                    </div>
+                                </div>
+                                <br/><br/>
+                                <div style="font-size:25px; text-align: center;"><b><u>RESIGNATION ACCEPTANCE LETTER</u></b></div>
+                                <br/><br/><br/>
+                                <div style="font-size:17px; text-align: left; padding-left: 5px;">Name: <strong><span t-esc="obj.name"/></strong></div>
+                                <div style="font-size:17px; text-align: left; padding-left: 5px; padding-top: 5px;">Designation: <strong><span t-esc="obj.job_id.name"/></strong></div>
+<!--                                <div style="font-size:17px; text-align: left; padding-left: 5px; padding-top: 5px;">E-Code: <strong>TS28XXXX</strong></div>-->
+                                <br/><br/>
+                                <div style="font-size:17px; padding-right: 5px; height: 14px;">
+                                    <p>We acknowledge receipt of your resignation letter dated
+                                        <strong>
+                                            <t t-set="formatted_date" t-value="obj.ts_resignation_date and obj.ts_resignation_date.strftime('%d %b %Y') or ''"/>
+                                            <t t-esc="formatted_date"/>
+                                        </strong>, in which you tendered your resignation from the position of <strong><span t-esc="obj.job_id.name"/></strong>
+                                    </p><br/>
+                                    <p>We want to inform you that your resignation has been accepted, and we have mutually agreed to relieve you from your duties as of
+                                        <strong>
+                                            <t t-set="formatted_date" t-value="obj.ts_resignation_date and obj.ts_resignation_date.strftime('%d %b %Y') or ''"/>
+                                            <t t-esc="formatted_date"/>
+                                        </strong>
+                                    </p>
+                                    <p>Please note that this letter serves as an in-principle acceptance of your resignation and is not the final relieving letter. The official relieving letter will be issued after 45 days.</p><br/>
+                                    <p>Throughout your tenure with us, we observed your dedication, diligence, and honesty in carrying out your responsibilities. We appreciate your hard work and commitment.</p>
+                                    <p>We wish you the best in your future endeavors.</p><br/>
+                                    <p>Sincerely,</p><br/><br/>
+                                    <p>Authority Signatory</p>
+                                    <p><span style="font-size: 15px; font-weight: bold;" t-esc="user.company_id.name"/></p>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <!--  Appraisal Letter  -->
+        <template id="template_rpt_appraisal_letter_view">
+            <t t-foreach="docs" t-as="obj">
+                <t t-call="web.html_container">
+<!--                    <t t-call="ts_hr_letters.external_layout">-->
+                        <div class="page">
+                            <div>
+                                <div class="col-12">
+                                    <div style="border: 0px solid red !important;">
+                                        <div style="font-size:17px; padding-right: 5px; height: 14px; text-align: right;">
+                                            Date: <strong>
+                                                        <t t-set="formatted_date" t-value="context_timestamp(datetime.datetime.now()) and context_timestamp(datetime.datetime.now()).strftime('%d %b %Y') or ''"/>
+                                                        <t t-esc="formatted_date"/>
+                                                  </strong>
+                                        </div>
+                                    </div>
+                                    <div style="font-size:25px; text-align: center;"><b><u>APPRAISAL LETTER</u></b></div>
+                                    <br/><br/><br/>
+                                    <div style="font-size:15px; padding-left: 5px; padding-top: 5px;">
+                                        Name: <strong><span t-esc="obj.employee_id.name"/></strong>
+                                    </div>
+                                    <div style="font-size:15px; padding-left: 5px; padding-top: 5px;">
+                                        Designation: <strong><span t-esc="obj.employee_id.job_id.name"/></strong>
+                                    </div>
+                                    <br/><br/>
+                                    <div style="font-size:15px; padding-right: 5px; padding-bottom: 10px;">Congratulations!!</div>
+                                    <br/>
+                                    <div style="font-size:15px; padding-right: 5px; padding-top: 5px;">
+                                        <p style="padding-top: 15px; padding-right: 5px;">We have been keeping an eye on your performance during your tenure and after
+                                            careful evaluation of your performance; we are pleased to inform you that we found your performance quite satisfactory and
+                                            would like to an appraise in your salary to Rs. <strong><span t-esc="int(float(obj.wage) * 12)"/></strong> annually as an appreciation with effect from
+                                            <strong>
+                                                <t t-set="contract" t-value="obj.employee_id.contract_ids and obj.employee_id.contract_ids[0]"/>
+                                                <t t-set="formatted_date" t-value="contract.date_start and contract.date_start.strftime('%d %b %Y') or ''"/>
+                                                <t t-esc="formatted_date"/>
+                                            </strong>. Please find the annexure details below
+                                        </p>
+                                    </div>
+                                    <br/>
+                                    <t t-if="obj.display_salary_table and int(float(obj.display_salary_table)) == True">
+                                        <table style="border-collapse: collapse;width: 100%;">
+                                            <tbody>
+                                                <tr>
+                                                    <th style="border: 1px solid #dddddd;width:50%;text-align:left;padding: 5px 10px 10px;">Name</th>
+                                                    <td style="border: 1px solid #dddddd;width:50%; padding-left:20px;" colspan="2"><strong><span t-esc="obj.employee_id.name"/></strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <th style="border: 1px solid #dddddd;width:50%;text-align:left;padding: 5px 10px 10px;">Designation</th>
+                                                    <td style="border: 1px solid #dddddd;width:50%; padding-left:20px;" colspan="2"><strong><span t-esc="obj.employee_id.job_id.name"/></strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <th style="border: 1px solid #dddddd;width:50%;text-align:left;padding: 5px 10px 10px;">W.E.F</th>
+                                                    <td style="border: 1px solid #dddddd;width:50%; padding-left:20px;" colspan="2">
+                                                        <strong>
+                                                            <t t-set="contract" t-value="obj.employee_id.contract_ids and obj.employee_id.contract_ids[0]"/>
+                                                            <t t-set="formatted_date" t-value="contract.date_start and contract.date_start.strftime('%d %b %Y') or ''"/>
+                                                            <t t-esc="formatted_date"/>
+                                                        </strong>
+                                                    </td>
+                                                </tr>
+                                                 <tr>
+                                                    <th style="border: 1px solid #dddddd;width:50%;text-align:left;padding: 5px 10px 10px;">Location</th>
+                                                    <td style="border: 1px solid #dddddd;width:50%; padding-left:20px;" colspan="2"><strong><span t-esc="obj.employee_id.work_location_id.name"/></strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <th style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">Earnings</th>
+                                                    <th style="border: 1px solid #dddddd; padding-left:20px;">Per month</th>
+                                                    <th style="border: 1px solid #dddddd; padding-left:20px;">Per annum</th>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">Basic</td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.basic))"/></td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px;">
+                                                        <t t-set="basic_numeric" t-value="float(obj.basic)"/>
+                                                        <t t-set="monthly_basic" t-value="int(basic_numeric * 12)"/>
+                                                        <span t-esc="monthly_basic"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">HRA</td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.hra))"/></td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px;">
+                                                        <t t-set="hra_numeric" t-value="float(obj.hra)"/>
+                                                        <t t-set="monthly_hra" t-value="int(hra_numeric * 12)"/>
+                                                        <span t-esc="monthly_hra"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">Conveyance Allowances</td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(obj.ca)"/></td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(obj.ca) * 12"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">Special Allowances</td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.sa))"/></td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px;">
+                                                        <t t-set="sa_numeric" t-value="float(obj.sa)"/>
+                                                        <t t-set="monthly_sa" t-value="int(sa_numeric * 12)"/>
+                                                        <span t-esc="monthly_sa"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">Gross Salary</th>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px;"><strong><span t-esc="int(float(obj.gross))"/></strong></td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px;">
+                                                        <strong>
+                                                            <t t-set="gross_numeric" t-value="float(obj.gross)"/>
+                                                            <t t-set="monthly_gross" t-value="int(gross_numeric * 12)"/>
+                                                            <span t-esc="monthly_gross"/>
+                                                        </strong>
+                                                    </td>
+                                                </tr>
+                                                <t t-if="obj.pf_eligible and int(float(obj.pf_eligible)) == True">
+                                                    <tr>
+                                                        <td style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">PF</td>
+                                                        <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.pf))"/></td>
+                                                        <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.pf) * 12)"/></td>
+                                                    </tr>
+                                                </t>
+                                                <t t-if="int(float(obj.wage)) &lt;= 21000">
+                                                    <tr>
+                                                        <td style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">ESI</td>
+                                                        <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.esi))"/></td>
+                                                        <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.esi) * 12)"/></td>
+                                                    </tr>
+                                                </t>
+                                                <t t-if="obj.retention and int(float(obj.retention)) != 0">
+                                                     <tr>
+                                                        <td style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">Retention</td>
+                                                        <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.retention))"/></td>
+                                                        <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.retention) * 12)"/></td>
+                                                    </tr>
+                                                </t>
+                                                <t t-if="obj.gratuity_eligible and int(float(obj.gratuity_eligible)) == True">
+                                                     <tr>
+                                                        <td style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">Gratuity</td>
+                                                        <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.gratuity))"/></td>
+                                                        <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.gratuity) * 12)"/></td>
+                                                     </tr>
+                                                </t>
+                                                <t t-if="obj.tds and int(float(obj.tds)) != 0">
+                                                    <tr>
+                                                        <td style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">TDS</td>
+                                                        <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.tds))"/></td>
+                                                        <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.tds) * 12)"/></td>
+                                                    </tr>
+                                                </t>
+                                                <t t-if="obj.professional_tax and int(float(obj.professional_tax)) != 0">
+                                                    <tr>
+                                                        <td style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">Professional Tax</td>
+                                                        <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.professional_tax))"/></td>
+                                                        <td style="border: 1px solid #dddddd; padding-left:20px;"><span t-esc="int(float(obj.professional_tax) * 12)"/></td>
+                                                    </tr>
+                                                </t>
+                                                 <tr>
+                                                    <th style="border: 1px solid #dddddd; text-align:left;padding: 5px 10px 10px;">Net Pay Salary</th>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px;"><strong><span t-esc="int(float(obj.master_net_pay))"/></strong></td>
+                                                    <td style="border: 1px solid #dddddd; padding-left:20px;">
+                                                        <strong>
+                                                            <t t-set="net_pay_numeric" t-value="float(obj.master_net_pay)"/>
+                                                            <t t-set="monthly_net_pay" t-value="int(net_pay_numeric * 12)"/>
+                                                            <span t-esc="monthly_net_pay"/>
+                                                        </strong>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </t>
+                                    <br/>
+                                    <div class="appreciation-message" style="font-size:15px; padding-right: 5px; padding-top: 5px;">
+                                        <p style="padding-top: 10px; padding-right: 5px;">We believe in your continued passion and dedication, and we are confident that you will contribute to achieving the best possible outcomes. This salary appraisal reflects our appreciation for your hard work and commitment.</p>
+                                        <p style="padding-top: 10px; padding-right: 5px;">Wishing you continued success and fulfillment in your career.</p>
+                                        <p style="padding-top: 10px; padding-right: 5px;">Sincerely,</p>
+                                        <p style="padding-top: 10px;">(Authority Signatory)</p>
+                                        <p><span style="font-size: 15px; font-weight: bold;" t-esc="user.company_id.name"/></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+<!--                    </t>-->
+                </t>
+            </t>
+        </template>
+
+        <!--  Relieving Cum Experience Letter  -->
+        <template id="template_rpt_experience_letter_view">
+            <t t-foreach="docs" t-as="obj">
+                <t t-call="web.html_container">
+                    <t t-call="ts_hr_letters.external_layout">
+                        <div class="col-12">
+                                <div style="border: 0px solid red !important;">
+                                    <div style="font-size:17px; padding-right: 5px; height: 14px; text-align: right;">
+                                        Date: <strong>
+                                                    <t t-set="formatted_date" t-value="context_timestamp(datetime.datetime.now()) and context_timestamp(datetime.datetime.now()).strftime('%d %b %Y') or ''"/>
+                                                    <t t-esc="formatted_date"/>
+                                              </strong>
+                                    </div>
+                                </div>
+                                <br/><br/>
+                                <div style="font-size:25px; text-align: center;"><b><u>Relieving Cum Experience Letter</u></b></div>
+                                <br/><br/><br/>
+                                <div style="font-size:17px; text-align: left; padding-left: 5px;">Name: <strong><span t-esc="obj.name"/></strong></div>
+                                <div style="font-size:17px; text-align: left; padding-left: 5px; padding-top: 5px;">Designation: <strong><span t-esc="obj.job_id.name"/></strong></div>
+                                <br/><br/>
+                                <div style="font-size:17px; padding-right: 5px; height: 14px;">
+                                    <p><strong><span style="font-size: 15px; font-weight: bold;" t-esc="user.company_id.name"/></strong> hereby accepts receipts of your resignation. With reference to your resignation letter dated
+                                        <strong>
+                                            <t t-set="formatted_date" t-value="obj.ts_resignation_date and obj.ts_resignation_date.strftime('%d %b %Y') or ''"/>
+                                            <t t-esc="formatted_date"/>
+                                        </strong>, we hereby accept your resignation and agree to relieve you from the duties on
+                                        <strong>
+                                            <t t-set="formatted_date" t-value="context_timestamp(datetime.datetime.now()) and context_timestamp(datetime.datetime.now()).strftime('%d %b %Y') or ''"/>
+                                            <t t-esc="formatted_date"/>
+                                        </strong>.
+                                    </p><br/>
+                                    <p>We confirm that you have been working with us from
+                                        <strong>
+                                            <t t-set="formatted_date" t-value="obj.first_contract_date and obj.first_contract_date.strftime('%d %b %Y') or ''"/>
+                                            <t t-esc="formatted_date"/>
+                                        </strong> to
+                                        <strong>
+                                            <t t-set="formatted_date" t-value="context_timestamp(datetime.datetime.now()) and context_timestamp(datetime.datetime.now()).strftime('%d %b %Y') or ''"/>
+                                            <t t-esc="formatted_date"/>
+                                        </strong> as <strong><span t-esc="obj.job_id.name"/></strong></p><br/>
+                                    <p>During your employment with us, we found you to be hard-working, diligent and honest in performing your duties.</p><br/>
+                                    <p>The management would like to thank you for your service and wish you all the best for your future endeavours.</p><br/>
+                                    <p>Sincerely,</p><br/><br/>
+                                    <p>Authority Signatory</p>
+                                    <p><span style="font-size: 15px; font-weight: bold;" t-esc="user.company_id.name"/></p>
+                                </div>
+                            </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <!--  Promotion Letter  -->
+        <template id="template_rpt_promotion_letter_view">
+            <t t-foreach="docs" t-as="obj">
+                <t t-call="web.html_container">
+                    <t t-call="ts_hr_letters.external_layout">
+                        <div class="page">
+                            <div>
+                                <div class="col-12">
+                                    <div style="text-align: right; font-size:15px; padding-right: 5px;">
+                                        <b>Date: </b>
+                                        <strong>
+                                            <t t-set="formatted_date" t-value="context_timestamp(datetime.datetime.now()) and context_timestamp(datetime.datetime.now()).strftime('%d %b %Y') or ''"/>
+                                            <t t-esc="formatted_date"/>
+                                        </strong>
+                                    </div>
+                                    <br/><br/>
+                                    <div style="text-align: center; font-size:25px; padding-right: 5px;">
+                                        <b><u>PROMOTION LETTER</u></b>
+                                    </div>
+                                    <br/><br/>
+                                    <div style="font-size:15px; padding-right: 5px; padding-top: 5px;">
+                                        <p style="padding-top: 15px; padding-right: 5px;">
+                                            We are delighted to formally announce your well-deserved promotion to the position of <strong><span t-esc="obj.job_id.name"/></strong> at <span style="font-size: 15px; font-weight: bold;" t-esc="user.company_id.name"/>,
+                                            effective from
+                                            <strong>
+                                                <t t-set="formatted_date" t-value="obj.contract_ids[0].date_start and obj.contract_ids[0].date_start.strftime('%d %b %Y') or ''"/>
+                                                <t t-esc="formatted_date"/>
+                                            </strong>.
+                                        </p>
+                                        <p style="padding-top: 15px; padding-right: 5px;">
+                                            The decision to promote you reflects our confidence in your abilities and your significant contributions to the success of our team. We are confident that you will excel in your expanded role and bring continued success to our organization.
+                                        </p>
+                                        <p style="padding-top: 15px; padding-right: 5px;">
+                                            We value your hard work and dedication, and we look forward to your continued success. Your achievements are a source of pride for us, and we are confident that you will bring the same level of excellence to your new position.
+                                        </p>
+                                        <p style="padding-top: 0px; padding-right: 5px;">
+                                            Once again, congratulations on your well-deserved promotion. We wish you continued success in your career with <span style="font-size: 15px; font-weight: bold;" t-esc="user.company_id.name"/>.
+                                        </p>
+                                        <p style="padding-top: 15px; padding-right: 5px;">
+                                            Wishing you all the best.
+                                        </p>
+                                        <p style="padding-top: 25px; padding-right: 5px;">
+                                            Sincerely,
+                                        </p>
+                                        <p style="padding-top: 150px;">(Authority Signatory)</p>
+                                        <p><span style="font-size: 15px; font-weight: bold;" t-esc="user.company_id.name"/></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

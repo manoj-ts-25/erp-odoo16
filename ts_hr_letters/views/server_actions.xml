@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+<!-- Employee Send Appointment Letter Server Action -->
+    <record model="ir.actions.server" id="action_employee_appointment_letter">
+       <field name="name">Send Appointment Letter</field>
+       <field name="model_id" ref="hr.model_hr_employee"/>
+       <field name="binding_model_id" ref="hr.model_hr_employee"/>
+       <field name="state">code</field>
+       <field name="code">
+           action = records.open_appointment_wizard()
+       </field>
+   </record>
+
+   <!-- Employee Send Appraisal Letter Server Action -->
+    <record model="ir.actions.server" id="action_employee_appraisal_letter">
+       <field name="name">Send Appraisal Letter</field>
+       <field name="model_id" ref="hr.model_hr_employee"/>
+       <field name="binding_model_id" ref="hr.model_hr_employee"/>
+       <field name="state">code</field>
+       <field name="code">
+           action = records.open_appraisal_wizard()
+       </field>
+   </record>
+
+   <!-- Employee Send Resign Acceptance Letter Server Action -->
+    <record model="ir.actions.server" id="action_employee_accept_resign_letter">
+       <field name="name">Send Resign Acceptance Letter</field>
+       <field name="model_id" ref="hr.model_hr_employee"/>
+       <field name="binding_model_id" ref="hr.model_hr_employee"/>
+       <field name="state">code</field>
+       <field name="code">
+           action = records.action_resignation_letter()
+       </field>
+   </record>
+
+   <!-- Employee Send Promotion Letter Server Action -->
+    <record model="ir.actions.server" id="action_employee_promotion_letter">
+       <field name="name">Send Promotion Letter</field>
+       <field name="model_id" ref="hr.model_hr_employee"/>
+       <field name="binding_model_id" ref="hr.model_hr_employee"/>
+       <field name="state">code</field>
+       <field name="code">
+           action = records.action_promotion_letter()
+       </field>
+   </record>
+
+   <!-- Employee Send Experience Letter Server Action -->
+    <record model="ir.actions.server" id="action_employee_experience_letter">
+       <field name="name">Send Experience Letter</field>
+       <field name="model_id" ref="hr.model_hr_employee"/>
+       <field name="binding_model_id" ref="hr.model_hr_employee"/>
+       <field name="state">code</field>
+       <field name="code">
+           action = records.action_experience_letter()
+       </field>
+   </record>
+
+   <!-- Applicant Send Joining Email Server Action -->
+    <record model="ir.actions.server" id="action_applicant_joining_mail">
+       <field name="name">Send Joining Mail</field>
+       <field name="model_id" ref="hr_recruitment.model_hr_applicant"/>
+       <field name="binding_model_id" ref="hr_recruitment.model_hr_applicant"/>
+       <field name="sequence">4</field>
+       <field name="state">code</field>
+       <field name="code">
+           action = records.action_send_email_joining()
+       </field>
+   </record>
+
+   <!-- Applicant Send Document Gathering Email Server Action -->
+    <record model="ir.actions.server" id="action_applicant_document_gathering">
+       <field name="name">Send Document Gathering Mail</field>
+       <field name="model_id" ref="hr_recruitment.model_hr_applicant"/>
+       <field name="binding_model_id" ref="hr_recruitment.model_hr_applicant"/>
+       <field name="sequence">3</field>
+       <field name="state">code</field>
+       <field name="code">
+           action = records.action_send_email_letter()
+       </field>
+   </record>
+
+    <!-- Applicant Send Document Gathering Email Server Action -->
+    <!--<record model="ir.actions.server" id="action_applicant_interview_call">
+       <field name="name">Send Interview Call Letter</field>
+       <field name="model_id" ref="hr_recruitment.model_hr_applicant"/>
+       <field name="binding_model_id" ref="hr_recruitment.model_hr_applicant"/>
+       <field name="sequence">4</field>
+       <field name="state">code</field>
+       <field name="code">
+           action = records.action_send_interview_call()
+       </field>
+   </record>-->
+
+   <!-- Applicant Send Offer Letter Email Server Action -->
+    <record model="ir.actions.server" id="action_applicant_offer_letter">
+       <field name="name">Send Offer Letter</field>
+       <field name="model_id" ref="hr_recruitment.model_hr_applicant"/>
+       <field name="binding_model_id" ref="hr_recruitment.model_hr_applicant"/>
+       <field name="state">code</field>
+       <field name="code">
+           action = records.open_offer_wizard()
+       </field>
+   </record>
+
+   <!-- Applicant Send Mail Id Creation Server Action -->
+    <record model="ir.actions.server" id="action_applicant_official_mail">
+       <field name="name">Send Mail Id Creation request</field>
+       <field name="model_id" ref="hr_recruitment.model_hr_applicant"/>
+       <field name="binding_model_id" ref="hr_recruitment.model_hr_applicant"/>
+       <field name="state">code</field>
+       <field name="code">
+           action = records.action_mail_id_creation()
+       </field>
+   </record>
+
+   <!-- Applicant Send ERP User Creation Server Action -->
+    <record model="ir.actions.server" id="action_applicant_erp_user_creation">
+       <field name="name">Send ERP Account request</field>
+       <field name="model_id" ref="hr_recruitment.model_hr_applicant"/>
+       <field name="binding_model_id" ref="hr_recruitment.model_hr_applicant"/>
+       <field name="state">code</field>
+       <field name="code">
+           action = records.action_erp_creation()
+       </field>
+   </record>
+   </odoo>

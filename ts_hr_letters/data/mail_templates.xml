@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!--  Offer Letter Mail Template  -->
+        <record id="email_template_offer_letter_applicant" model="mail.template">
+            <field name="name">Candidate: Offer Letter</field>
+            <field name="model_id" ref="ts_hr_letters.model_hr_applicant"/>
+            <field name="subject">Offer Letter - {{  object.partner_name }}, {{ object.job_id.name }}</field>
+            <field name="email_to">{{ object.email_from }}</field>
+            <field name="partner_to">{{ object.partner_id.id }}</field>
+            <field name="email_cc">career@technians.com</field>
+            <field name="body_html" type="html">
+                <table border="0" cellpadding="0" cellspacing="0" width="590" style="background-color: white; border-collapse: collapse; margin-left: 20px;">
+                    <tr>
+                        <td valign="top" style="padding: 0px 10px;">
+                            <div style="font-size: 15px; margin: 0px; padding: 0px;">
+                                <br/>
+                                Dear <span style="font-size: 15px; font-weight: bold;"><t t-out="object.partner_name or ''">Applicant Name</t></span>,
+                                <br/><br/>
+                                We are delighted to extend our official offer for the position of  <span style="font-size: 15px; font-weight: bold;"><t t-out="object.job_id.name or ''"/></span>, in <span style="font-size: 15px; font-weight: bold;"><t t-out="object.company_id.name or ''"> </t>,<br/></span>
+                                <br/>
+                                After a thorough evaluation of your skills and qualifications, we are confident in your ability to contribute significantly to our team.<br/>
+                                <br/>
+                                Please find attached your formal offer letter, outlining the package with joining date of your employment.
+                                <br/>
+                                The designated workplace is in <span style="font-size: 15px; font-weight: bold;"><t t-out="object.job_id.address_id.city or ''"/></span> and your standard working hours will be from 10 a.m. to 7 p.m.
+                                <br/>
+                                <br/>
+                                We kindly request you to review the document thoroughly. If you have any questions or require clarification on any aspect, feel free to contact us at<![CDATA[ ]]><span style="font-size: 15px; font-weight: bold;"><a t-att-href="'mailto:'+user.login" t-esc="user.login"/></span>
+                                <br/><br/>
+                                We look forward to your positive response and hope for a fruitful and successful association. Thank you for choosing to be a part of <span style="font-size: 15px; font-weight: bold;"><t t-out="object.company_id.name"/></span>.
+                                <br/><br/>
+                                <h5 class="mb-1"><b t-esc="user.signature"/></h5>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </field>
+            <field name="lang">{{ object.partner_id.lang or '' }}</field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+
+        <!--  ERP Creation Mail Template  -->
+        <record id="email_template_erp_creation" model="mail.template">
+            <field name="name">ERP Creation</field>
+            <field name="model_id" ref="ts_hr_letters.model_hr_applicant"/>
+            <field name="subject">New Employee ERP Account Creation Request</field>
+            <!-- <field name="email_to">roshan.mehta@technians.com</field> -->
+            <field name="body_html" type="html">
+                <table border="0" cellpadding="0" cellspacing="0" width="590"
+                       style="background-color: white; border-collapse: collapse; margin-left: 20px;">
+                    <tr>
+                        <td valign="top" style="padding: 0px 10px;">
+                            <div style="font-size: 15px; margin: 0px; padding: 0px;">
+                                <br/>
+                                Hi<span style="font-size: 15px; font-weight: bold;"></span>,
+                                <br/><br/>
+                                I trust this message finds you well.
+                                <br/><br/>
+                                We are pleased to announce the addition of a new team member,
+                                <span style="font-size: 15px; font-weight: bold;">
+                                    <t t-out="object.partner_name or ''"/>
+                                </span>,
+                                who will be joining our
+                                <span style="font-size: 15px; font-weight: bold;">
+                                    <t t-out="object.department_id.name or ''"/>
+                                </span>.
+                                As part of the onboarding process, we kindly request your assistance in creating an ERP account for
+                                <span style="font-size: 15px; font-weight: bold;">
+                                    <t t-out="object.partner_name or ''"/>
+                                </span>.
+                                <br/><br/>
+                                <span style="font-size: 15px; font-weight: bold;">Employee Details:</span><br/>
+                                - Full Name:
+                                <span style="font-size: 15px; font-weight: bold;">
+                                    <t t-out="object.partner_name or ''"/>
+                                </span><br/>
+                                - Official email id:
+                                <span style="font-size: 15px; font-weight: bold;">
+                                    <t t-out="object.email_from or ''"/>
+                                </span><br/>
+                                - Position:
+                                <span style="font-size: 15px; font-weight: bold;">
+                                    <t t-out="object.job_id.name or ''"/>
+                                </span><br/>
+                                - Department:
+                                <span style="font-size: 15px; font-weight: bold;">
+                                    <t t-out="object.department_id.name or ''"/>
+                                </span><br/>
+                                - Location:
+                                <span style="font-size: 15px; font-weight: bold;">
+                                    <t t-out="object.job_id.address_id.city or ''"/>
+                                </span><br/><br/>
+                                <span style="font-size: 15px; font-weight: bold;">Action Required:</span><br/>
+                                <ol>
+                                    <li>Create an ERP account for <span style="font-size: 15px; font-weight: bold;"><t t-out="object.partner_name or ''"/></span></li>
+                                    <li>Set up any necessary configurations or permissions based on the role.</li>
+                                </ol>
+                                <br/>
+                                <span style="font-size: 15px; font-weight: bold;">Additional Information:</span><br/>
+                                - Ensure that <span style="font-size: 15px; font-weight: bold;"><t t-out="object.partner_name or ''"/></span> has access to the relevant modules and functionalities required for their role.<br/>
+                                - If there are specific training materials or resources related to the ERP system, please provide them to <span style="font-size: 15px; font-weight: bold;"><t t-out="object.partner_name or ''"/></span>
+                                <br/><br/>
+                                We appreciate your prompt attention to this matter to ensure a seamless onboarding experience.<br/>
+                                If you have any questions or need further information, feel free to reach out to
+                                <span style="font-size: 15px; font-weight: bold;">
+                                    <div class="d-flex align-items-center mb-1"><a t-att-href="'mailto:'+user.login" t-esc="user.login"/></div>
+                                </span>
+                                <br/><br/>
+                                Thank you for your cooperation.
+                                <br/><br/>
+                                Best regards,
+                                <br/><br/>
+                                <h5 class="mb-1"><b t-esc="user.signature"/></h5>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+
+        <!--  Mail ID Creation Template  -->
+        <record id="email_template_mail_creation_id" model="mail.template">
+            <field name="name">Mail id Creation</field>
+            <field name="model_id" ref="ts_hr_letters.model_hr_applicant"/>
+            <field name="subject">New Employee Email Account Creation</field>
+            <!-- <field name="email_to">aviral.dayma@technians.com</field> -->
+            <field name="body_html" type="html">
+                <table border="0" cellpadding="0" cellspacing="0" width="590"
+                       style="background-color: white; border-collapse: collapse; margin-left: 20px;">
+                    <tr>
+                        <td valign="top" style="padding: 0px 10px;">
+                            <div style="font-size: 15px; margin: 0px; padding: 0px;">
+                                <br/>
+                                Hi<span style="font-size: 15px; font-weight: bold;"></span>,
+                                <br/>
+                                <br/>
+                                I hope this email finds you well.
+                                <br/>
+                                <br/>
+                                We are excited to inform you about the onboarding of a new team member,
+                                <span style="font-size: 15px; font-weight: bold;">
+                                    <t t-out="object.partner_name or ''"/>
+                                </span>
+                                , who will be joining our
+                                <span style="font-size: 15px; font-weight: bold;">
+                                    <t t-out="object.department_id.name or ''"/>
+                                </span>
+                                on
+                                <span style="font-size: 15px; font-weight: bold;">
+                                    <t t-set="formatted_date" t-value="object.availability and object.availability.strftime('%d %b %Y') or ''"/>
+                                    <t t-esc="formatted_date"/>
+                                </span>
+                                <br/><br/>
+                                As part of the onboarding process, we kindly request your assistance in creating a new email account for
+                                <span style="font-size: 15px; font-weight: bold;">
+                                    <t t-out="object.partner_name or ''"/>
+                                </span>
+                                in our system.
+                                <br/>
+                                <br/>
+                                Here are the details for the new email account:
+                                <br/>
+                                <br/>
+                                <span style="font-size: 15px; font-weight: bold;">Employee Details:</span><br/>
+                                Full Name:
+                                <span style="font-size: 15px; font-weight: bold;">
+                                    <t t-out="object.partner_name or ''"/>
+                                </span><br/>
+                                Personal email id:
+                                <span style="font-size: 15px; font-weight: bold;">
+                                    <t t-out="object.email_from or ''"/>
+                                </span><br/>
+                                Position:
+                                <span style="font-size: 15px; font-weight: bold;">
+                                    <t t-out="object.job_id.name or ''"/>
+                                </span><br/>
+                                Start Date:
+                                <span style="font-size: 15px; font-weight: bold;">
+                                    <t t-set="formatted_date" t-value="object.availability and object.availability.strftime('%d %b %Y') or ''"/>
+                                    <t t-esc="formatted_date"/>
+                                </span><br/>
+                                Location:
+                                <span style="font-size: 15px; font-weight: bold;">
+                                    <t t-out="object.job_id.address_id.city or ''"/>
+                                </span>
+                                <br/><br/>
+                                 We appreciate your prompt attention to this matter to ensure a smooth onboarding experience for
+                                <span style="font-size: 15px; font-weight: bold;">
+                                    <t t-out="object.partner_name or ''"/>
+                                </span>
+                                .
+                                <br/><br/>
+                                If you have any questions or need further information, feel free to reach out to
+
+                                <span style="font-size: 15px; font-weight: bold;">
+                                    <div class="d-flex align-items-center mb-1"><a t-att-href="'mailto:'+user.login" t-esc="user.login"/></div>
+                                </span>
+                                <br/><br/>
+                                Thank you for your cooperation
+                                <br/><br/>
+                                Best regards,
+                                <br/><br/>
+                                <h5 class="mb-1"><b t-esc="user.signature"/></h5>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </field>
+            <field name="lang">{{ object.partner_id.lang or '' }}</field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+
+        <!--  Joining Mail Template  -->
+        <record id="email_template_joining_letter" model="mail.template">
+            <field name="name">Candidate: Joining Letter</field>
+            <field name="model_id" ref="ts_hr_letters.model_hr_applicant"/>
+            <field name="subject">Welcome to {{ object.company_id.name }}: Initiating Joining Formalities</field>
+            <field name="email_to">{{ object.email_from }}</field>
+            <field name="partner_to">{{ object.partner_id.id }}</field>
+            <field name="email_cc">{{ object.email_cc }}</field>
+            <field name="body_html" type="html">
+                <table border="0" cellpadding="0" cellspacing="0" width="590" style="background-color: white; border-collapse: collapse; margin-left: 20px;">
+                    <tr>
+                        <td valign="top" style="padding: 0px 10px;">
+                            <div style="font-size: 15px; margin: 0px; padding: 0px;">
+                                <br/>
+                                Dear <span style="font-size: 15px; font-weight: bold;"><t t-out="object.partner_name or ''">Applicant Name</t></span>,
+                                <br/><br/>
+                                Welcome to <span style="font-size: 15px; font-weight: bold;"><t t-out="object.company_id.name"/></span>!
+                                <br/><br/>
+                                We are delighted to have you on board. As we embark on this exciting journey together, we want to ensure a smooth onboarding process for you.
+                                <br/><br/>
+                                To initiate the joining formalities, we kindly request you to fill out the following forms:
+                                <br/><br/>
+                                <ul style="list-style: none;">
+                                    <li>
+                                        <h4><u>Know Your Employee Form:</u></h4>
+                                        <ul>
+                                            <li>This form provides us with essential information about you, allowing us to better understand your background, skills, and preferences.</li>
+                                        </ul>
+                                        <br/>
+                                        <h4><u>Background Verification Form:</u></h4>
+                                        <ul>
+                                            <li>To maintain the highest standards of integrity and security, we conduct background verifications. Please complete this form to facilitate the process.</li>
+                                        </ul>
+                                        <br/>
+                                        <h4><u>Policies and Procedures Form: </u></h4>
+                                        <ul>
+                                            <li>Familiarize yourself with our company policies and procedures by completing this form. It ensures that you are well-informed about our organizational guidelines.</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <br/>
+                               Your prompt attention to these forms will contribute to a seamless onboarding experience. Once completed, our team will proceed with the orientation and induction processes.If you have any questions or require assistance,
+                                feel free to reach out to <span style="font-size: 15px; font-weight: bold;"><b t-esc="user.name"/></span>, at <span style="font-size: 15px; font-weight: bold;"><a t-att-href="'mailto:'+user.login" t-esc="user.login"/></span>.
+                                <br/><br/>
+                                We look forward to having you as part of the <span style="font-size: 15px; font-weight: bold;"><t t-out="object.company_id.name"/></span> family!
+                                <br/><br/>
+                                Best Regards,
+                                <br/><br/>
+                                <span style="font-size: 15px; font-weight: bold;"><h5 class="mb-1"><b t-esc="user.signature"/></h5></span>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+
+        <!--  Documents Mail Template  -->
+        <record id="email_template_send_email" model="mail.template">
+    <field name="name">Candidate: Send Document Email</field>
+    <field name="model_id" ref="ts_hr_letters.model_hr_applicant"/>
+    <field name="subject">Congratulations, you have been selected for the position of {{ object.job_id.name }},Technians Softech Pvt. Ltd.</field>
+    <field name="email_to">{{ object.partner_id.email }}</field>
+    <!-- <field name="partner_to">{{ object.partner_id.id  }}</field> -->
+    <field name="email_cc">career@technians.com</field>
+    <field name="body_html" type="html">
+        <table border="0" cellpadding="0" cellspacing="0" width="590" style="background-color: white; border-collapse: collapse; margin-left: 20px;">
+            <tr>
+                <td valign="top" style="padding: 0px 10px;">
+                    <div style="font-size: 15px; margin: 0px; padding: 0px;">
+                        <br/>
+                        Dear <span style="font-size: 15px; font-weight: bold;"><t t-out="object.partner_name or ''">Applicant Name</t></span>,
+                        <br/><br/>
+                        <span style="font-size: 15px; font-weight: bold;">Congratulations!</span>
+                        <br/>
+                        <br/>
+                        We are pleased to inform you that you have been selected for the position of <span style="font-size: 15px; font-weight: bold;"><t t-out="object.job_id.name or ''"/></span> at our company, based on your job application and the subsequent interview
+                        We are excited to welcome you to Technians, and we look forward to working together.<br/><br/>
+                        We anticipate your joining on or before
+                        <span style="font-size: 15px; font-weight: bold;">
+                            <t t-set="formatted_date" t-value="object.availability and object.availability.strftime('%d %b %Y') or ''"/>
+                            <t t-esc="formatted_date"/>
+                        </span>, and your gross CTC for the role will be <span style="font-size: 15px; font-weight: bold;"><t t-esc="12 * object.salary_proposed or ''"/></span>
+                        INR annually. Your designated workplace will be in <span style="font-size: 15px; font-weight: bold;"><t t-out="object.job_id.address_id.city or ''"/></span>
+                        <br/><br/>
+                        To facilitate a smooth onboarding process, we kindly request you to share the soft copies of the following documents. Please ensure to bring the original documents at the time of joining the office:
+                        <br/><br/>
+                        <ul>
+                            <li>Two passport-size photographs.</li>
+                            <li>Scan copies and originals of all education certificates.</li>
+                            <li>Scan copies and originals of previous employment documents.</li>
+                            <li>Scan copies of your offer letters and experience and relieving letters from all previous companies.</li>
+                            <li>Scan copy and original of PAN Card, Aadhaar Card, or Driving License/Voter Card.</li>
+                        </ul>
+                        We extend our heartfelt congratulations on becoming a part of our family!<br/>
+                        Please note that this offer is valid for acceptance until
+                        <span style="font-size: 15px; font-weight: bold;">
+                            <t t-set="formatted_date" t-value="object.new_availability_date and object.new_availability_date.strftime('%d %b %Y') or ''"/>
+                            <t t-esc="formatted_date"/>
+                        </span>,
+                        and it will be automatically withdrawn thereafter unless we extend the date through written communication.
+                        <br/><br/>
+                        We eagerly anticipate building a mutually long-lasting relationship and trust with you as a valuable member of our company.
+                        <br/>
+                        <br/>
+                        Kindly acknowledge the receipt of this email and share the required documents at your earliest convenience.
+                        <br/><br/>
+                        Best Regards,
+                        <br/><br/>
+                        <span style="font-size: 15px; font-weight: bold;"><h5 class="mb-1"><b t-esc="user.signature"/></h5></span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </field>
+    <field name="lang">{{ object.partner_id.lang or '' }}</field>
+    <field name="auto_delete" eval="False"/>
+</record>
+
+        <!--  Appointment Letter Mail Template  -->
+        <record id="email_template_appointment_letter" model="mail.template">
+            <field name="name">Employee: Appointment Letter</field>
+            <field name="model_id" ref="model_hr_employee"/>
+            <field name="subject">Completion of Probation Period - Appointment Letter Enclosed</field>
+            <field name="email_to">{{ object.work_email }}</field>
+            <field name="partner_to">{{ object.user_partner_id.id  }}</field>
+            <field name="email_cc">{{ object.private_email }}</field>
+            <field name="body_html" type="html">
+                <table border="0" cellpadding="0" cellspacing="0" width="590" style="background-color: white; border-collapse: collapse; margin-left: 20px;">
+                    <tr>
+                        <td valign="top" style="padding: 0px 10px;">
+                            <div style="font-size: 15px; margin: 0px; padding: 0px;">
+                                <br/>
+                                Dear <span style="font-size: 15px; font-weight: bold;"><t t-out="object.name or ''">Employee Name</t></span>,
+                                <br/><br/>
+                                Congratulations on successfully completing your probationary period at <span style="font-size: 15px; font-weight: bold;"><t t-out="object.company_id.name or ''">Your Company</t></span>. We are pleased to inform you that, based on your performance and dedication, you have successfully transitioned from the probationary phase to regular employment.
+                                <br/><br/>
+                                Attached to this email, you will find your detailed appointment letter, which outlines the terms and conditions of your continued employment with us. We encourage you to review the document thoroughly and reach out to us if you have any questions or require further clarification.
+                                <br/><br/>
+                                We value your contributions to our team and look forward to your continued success.
+                                <br/><br/>
+                                If there are any specific details or discussions you would like to have regarding your role or responsibilities, please do not hesitate to schedule a meeting with your supervisor or the HR department.
+                                <br/>
+                                Once again, congratulations on this achievement, and we wish you a fulfilling and rewarding journey ahead with <span style="font-size: 15px; font-weight: bold;"><t t-out="object.company_id.name or ''">Your Company</t></span>.
+                                <br/><br/>
+                                Best Regards,
+                                <br/>
+                                <span style="font-size: 15px; font-weight: bold;"><h5 class="mb-1"><b t-esc="user.name"/></h5></span>
+                                <br/><br/>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </field>
+
+            <field name="auto_delete" eval="False"/>
+        </record>
+
+        <!--  Resignation Letter Mail Template  -->
+        <record id="email_template_resignation_letter" model="mail.template">
+            <field name="name">Employee: Resignation Letter</field>
+            <field name="model_id" ref="model_hr_employee"/>
+            <field name="subject">Acceptance of Resignation</field>
+            <field name="email_to">{{ object.work_email }}</field>
+            <field name="email_cc">{{ object.private_email }}</field>
+            <field name="body_html" type="html">
+                <table border="0" cellpadding="0" cellspacing="0" width="590" style="background-color: white; border-collapse: collapse; margin-left: 20px;">
+                    <tr>
+                        <td valign="top" style="padding: 0px 10px;">
+                            <div style="font-size: 15px; margin: 0px; padding: 0px;">
+                                <br/>
+                                Dear <span style="font-size: 15px; font-weight: bold;"><t t-out="object.name or ''">Employee Name</t></span>,
+                                <br/><br/>
+                                I hope this email finds you well.
+                                <br/><br/>
+                                We want to officially acknowledge receipt of your resignation letter dated
+                                <span style="font-size: 15px; font-weight: bold;">
+                                    <t t-set="formatted_date" t-value="object.ts_resignation_date and object.ts_resignation_date.strftime('%d %b %Y') or ''"/>
+                                    <t t-esc="formatted_date"/>
+                                </span>.
+                                <br/><br/>
+                                After careful consideration, we accept your decision to resign from your position as Your Position at
+                                <span style="font-size: 15px; font-weight: bold;"><t t-out="object.company_id.name"/></span>,
+                                effective
+                                <span style="font-size: 15px; font-weight: bold;">
+                                    <t t-set="formatted_date" t-value="object.ts_resignation_date and object.ts_resignation_date.strftime('%d %b %Y') or ''"/>
+                                    <t t-esc="formatted_date"/>
+                                </span>
+                                <br/><br/>
+                                We want to express our appreciation for the contributions you have made during your time with the company. Your dedication and hard work have been valuable, and we wish you the best in your future endeavors.
+                                <br/><br/>
+                                Enclosed with this email is a formal acceptance letter, outlining the details discussed above. Please review it for your records.
+                                <br/><br/>
+                                If you have any outstanding tasks or responsibilities, please work with <span style="font-size: 15px; font-weight: bold;"><t t-out="object.parent_id.name or ''"/></span> to ensure a smooth transition. We also request that you return any company property and complete any necessary exit interviews before your departure.
+                                <br/><br/>
+                                Once again, thank you for your service to <span style="font-size: 15px; font-weight: bold;"><t t-out="object.company_id.name"/></span>. We wish you success in all your future endeavors. If you have any questions or require further clarification, feel free to reach out.
+                                <br/><br/>
+                                Best Regards,
+                                <br/>
+                                <span style="font-size: 15px; font-weight: bold;"><h5 class="mb-1"><b t-esc="user.signature"/></h5></span>
+                                <br/><br/>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </field>
+            <field name="lang">{{ object.user_partner_id.lang or '' }}</field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+
+        <!--  Appraisal Letter Mail Template  -->
+        <record id="email_template_appraisal_letter" model="mail.template">
+            <field name="name">Employee: Appraisal Letter</field>
+            <field name="model_id" ref="model_hr_employee"/>
+            <field name="subject">Congratulations on Your Appraisal - Appraisal Letter Enclosed</field>
+            <field name="email_to">{{ object.work_email }}</field>
+            <field name="email_cc">{{ object.private_email }}</field>
+            <field name="body_html" type="html">
+                <table border="0" cellpadding="0" cellspacing="0" width="590" style="background-color: white; border-collapse: collapse; margin-left: 20px;">
+                    <tr>
+                        <td valign="top" style="padding: 0px 10px;">
+                            <div style="font-size: 15px; margin: 0px; padding: 0px;">
+                                <br/>
+                                Dear <span style="font-size: 15px; font-weight: bold;"><t t-out="object.name or ''">Employee Name</t></span>,
+                                <br/><br/>
+                                We are thrilled to extend our warmest congratulations on your well-deserved appraisal. Your hard work, dedication, and outstanding performance have not gone unnoticed, and we are delighted to recognize your contributions to the team.
+                                <br/><br/>
+                                Attached to this email, you will find your detailed appraisal letter, which outlines the specifics of your appraisal, including the revised compensation and any additional benefits. We believe that this acknowledgment is a testament to your commitment and the positive impact you have made within the organization.
+                                <br/><br/>
+                                Should you have any questions or require further clarification regarding the contents of the appraisal letter, please feel free to reach out to the HR department or your supervisor.
+                                <br/><br/>
+                                Once again, congratulations on this significant achievement. We value your continued dedication to our team and look forward to witnessing your continued success.
+                                <br/><br/>
+                                Best Regards,
+                                <br/>
+                                <span style="font-size: 15px; font-weight: bold;"><h5 class="mb-1"><b t-esc="user.signature"/></h5></span>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </field>
+            <field name="lang">{{ object.user_partner_id.lang or '' }}</field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+
+        <!--  Experience Letter Mail Template  -->
+        <record id="email_template_experience_letter" model="mail.template">
+            <field name="name">Employee: Experience Letter</field>
+            <field name="model_id" ref="model_hr_employee"/>
+            <field name="subject">Experience Letter for {{ object.name }}</field>
+            <field name="email_to">{{ object.work_email }}</field>
+            <field name="email_cc">{{ object.private_email }}</field>
+            <field name="body_html" type="html">
+                <table border="0" cellpadding="0" cellspacing="0" width="590" style="background-color: white; border-collapse: collapse; margin-left: 20px;">
+                    <tr>
+                        <td valign="top" style="padding: 0px 10px;">
+                            <div style="font-size: 15px; margin: 0px; padding: 0px;">
+                                <br/>
+                                Dear <span style="font-size: 15px; font-weight: bold;"><t t-out="object.name or ''">Employee Name</t></span>,
+                                <br/>
+                                We are pleased to provide you with this formal experience letter as a token of appreciation for your valuable contributions during your tenure at <span style="font-size: 15px; font-weight: bold;"><t t-out="object.company_id.name"/></span>. We would like to express our gratitude for the dedication, hard work, and professionalism you exhibited throughout your employment with us.
+                                <br/><br/>
+                                Please find enclosed a detailed summary of your employment with <span style="font-size: 15px; font-weight: bold;"><t t-out="object.company_id.name"/></span>, including the duration of your service and your final position.
+                                <br/><br/>
+                                If you have any queries or require further clarification, feel free to contact our Human Resources department at <span style="font-size: 15px; font-weight: bold;"><t t-out="user.mobile"/></span>.
+                                <br/><br/>
+                                We wish you the very best in your future endeavors, and we are confident that your skills and expertise will continue to bring success in your career.
+                                <br/><br/>
+                                Thank you once again for your hard work and dedication.
+                                <br/><br/>
+                                Best Regards,
+                                <br/>
+                                <span style="font-size: 15px; font-weight: bold;"><h5 class="mb-1"><b t-esc="user.signature"/></h5></span>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </field>
+            <field name="lang">{{ object.user_partner_id.lang or '' }}</field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+
+        <!--  Promotion Letter Mail Template  -->
+        <record id="email_template_promotion_letter" model="mail.template">
+            <field name="name">Employee: Promotion Letter</field>
+            <field name="model_id" ref="model_hr_employee"/>
+            <field name="subject">Congratulations on Your Promotion - Promotion Letter Enclosed</field>
+            <field name="email_to">{{ object.work_email }}</field>
+            <field name="email_cc">{{ object.private_email }}</field>
+            <field name="body_html" type="html">
+                <table border="0" cellpadding="0" cellspacing="0" width="590" style="background-color: white; border-collapse: collapse; margin-left: 20px;">
+                    <tr>
+                        <td valign="top" style="padding: 0px 10px;">
+                            <div style="font-size: 15px; margin: 0px; padding: 0px;">
+                                <br/>
+                                Dear <span style="font-size: 15px; font-weight: bold;"><t t-out="object.name or ''">Employee Name</t></span>,
+                                <br/><br/>
+                                Warm congratulations on your well-deserved promotion! Your dedication, hard work, and outstanding performance have set you apart, and we are thrilled to recognize and reward your contributions to the team.
+                                <br/><br/>
+                                Attached to this email, you will find your promotion letter.
+                                <br/><br/>
+                                We believe that this promotion is a testament to your commitment and the positive impact you have made within the organization.<p/>If you have any questions or require further clarification regarding the contents of the promotion letter, please feel free to reach out to the HR department or your supervisor.
+                                <br/><br/>
+                                Once again, congratulations on this significant achievement. We are confident that you will excel in your new role, and we look forward to witnessing your continued success.
+                                <br/><br/>
+                                Best Regards,
+                                <br/>
+                                <span style="font-size: 15px; font-weight: bold;"><h5 class="mb-1"><b t-esc="user.signature"/></h5></span>
+                                <br/><br/>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </field>
+            <field name="lang">{{ object.user_partner_id.lang or '' }}</field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+<!--  Decline the Offer Letter Mail Template  -->
+<record id="email_template_decline_letter" model="mail.template">
+    <field name="name">Employee: Decline the Offer</field>
+      <field name="model_id" ref="ts_hr_letters.model_hr_applicant"/>
+    <field name="subject"> Declining the Offer for {{object.job_id.name}} Position at Technians</field>
+    <field name="email_to">{{ object.email_from }}</field>
+    <field name="partner_to">{{ object.partner_id.id }}</field>
+    <field name="email_cc">{{ object.email_cc }}</field>
+    <field name="body_html" type="html">
+        <table border="0" cellpadding="0" cellspacing="0" width="590" style="background-color: white; border-collapse: collapse; margin-left: 20px;">
+            <tr>
+                <td valign="top" style="padding: 0px 10px;">
+                    <div style="font-size: 15px; margin: 0px; padding: 0px;">
+                        <br/>
+                        Dear,
+                        <br/><br/>
+                        I hope you're doing well.
+                        <br/><br/>
+We wanted to follow up regarding your acceptance of the  <span style="font-size: 15px; font-weight: bold;"><t t-out="object.job_id.name or ''"/></span> position at Technians. As you did not join on the agreed start date and have not responded to our previous communications, we regret to inform you that the offer is no longer valid, and we are officially withdrawing your candidacy for this position.
+                        <br/><br/>
+                        We understand that situations can change, and while we're disappointed we couldn't move forward together at this time, we wish you all the best in your future endeavours.
+                        <br/><br/>
+                        Thank you again for your initial interest, and best of luck moving forward.
+                        <br/><br/>
+                        Best Regards,
+                        <br/>
+                        <span style="font-size: 15px; font-weight: bold;"><h5 class="mb-1"><b t-esc="user.signature"/></h5></span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </field>
+    <field name="auto_delete" eval="False"/>
+</record>
+    </data>
+</odoo>

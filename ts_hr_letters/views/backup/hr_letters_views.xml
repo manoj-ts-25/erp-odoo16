@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <!--  HR Employee  -->
+    <record id="hr_employee_letter_form_view_id" model="ir.ui.view">
+        <field name="name">hr.employee.letter.form.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/header" position="inside">
+                <button string="SEND APPOINTMENT LETTER" type="object" name="open_appointment_wizard" groups="ts_hr_letters.group_hr_employee"/>
+                <button string="SEND APPRAISAL LETTER" type="object" name="open_appraisal_wizard" groups="ts_hr_letters.group_hr_employee"/>
+                <button string="SEND ACCEPTANCE RESIGNATION MAIL" type="object" name="action_resignation_letter" groups="ts_hr_letters.group_hr_employee"/>
+                <button string="SEND PROMOTION LETTER " type="object" name="action_promotion_letter" groups="ts_hr_letters.group_hr_employee"/>
+                <button string="SEND RELIEVING CUM EXPERIENCE LETTER" type="object" name="action_experience_letter" groups="ts_hr_letters.group_hr_employee"/>
+            </xpath>
+            <xpath expr="//field[@name='coach_id']" position="after">
+                <field name="ts_resignation_date"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!--  Applicant  -->
+    <record id="applicant_letter_form_view_id" model="ir.ui.view">
+        <field name="name">applicant.letter.form.inherit</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='archive_applicant']" position="after">
+                <button string="SEND JOINING MAIL" type="object" name="action_send_email_joining" groups="ts_hr_letters.group_hr_employee"/>
+                <button string="SEND DOCUMENT MAIL" type="object" name="action_send_email_letter" groups="ts_hr_letters.group_hr_employee"/>
+                <button string="SEND OFFER LETTER" type="object" name="open_offer_wizard" groups="ts_hr_letters.group_hr_employee"/>
+                <button string="SEND ERP CREATION MAIL" type="object" name="action_erp_creation" groups="ts_hr_letters.group_hr_employee"/>
+                <button string="SEND E-Mail ID CREATION" type="object" name="action_mail_id_creation" groups="ts_hr_letters.group_hr_employee"/>
+                <button string="SEND GMAIL" type="object" name="action_testing_mail" groups="ts_hr_letters.group_hr_employee"/>
+            </xpath>
+            <xpath expr="//field[@name='availability']" position="after">
+                <field name="new_availability_date" invisible="0"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!--  Applicant  -->
+    <record id="job_form_view_id" model="ir.ui.view">
+        <field name="name">job.form.inherit</field>
+        <field name="model">hr.job</field>
+        <field name="inherit_id" ref="hr.view_hr_job_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='interviewer_ids']" position="after">
+                <field name="notice_period"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!--  HR Contract  -->
+    <record id="contract_form_view_id" model="ir.ui.view">
+        <field name="name">contract.form.inherit</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='allowances']" position="after">
+                <group string="Other Things" name='other_things'>
+                    <label for="x_hc_tds"/>
+                    <div class="o_row">
+                        <field name="x_hc_tds" nolabel="1"/>
+                    </div>
+                    <label for="x_hc_retention_bonus"/>
+                    <div class="o_row">
+                        <field name="x_hc_retention_bonus" nolabel="1"/>
+                    </div>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!--  Action for calling phone calls view from leads  -->
+        <record id="action_hr_layout_settings_view" model="ir.actions.act_window">
+            <field name="name">HR Layout Settings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_id" ref="ts_hr_letters.res_config_settings_view_form"/>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="context">{'module' : 'ts_hr_letters'}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                Show HR Layout Settings !
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="submenu_hr_layout_settings" name="HR Layout Settings" sequence="2"
+                  parent="hr.menu_human_resources_configuration" action="action_hr_layout_settings_view"/>
+</odoo>

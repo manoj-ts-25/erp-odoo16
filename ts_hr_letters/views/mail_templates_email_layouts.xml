@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="custom_mail_notification_layout" inherit_id="mail.mail_notification_layout">
+            <xpath expr="//body" position="replace">
+                <body>
+                    <div t-out="message.body" style="font-size: 13px;"/>
+                    <ul t-if="tracking_values">
+                        <t t-foreach="tracking_values" t-as="tracking">
+                            <li><t t-out="tracking[0]"/>:
+                                <t t-out="tracking[1]"/>
+                                →
+                                <t t-out="tracking[2]"/>
+                            </li>
+                        </t>
+                    </ul>
+                </body>
+            </xpath>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_custom_base_document_layout,custom.base.document.layout,model_custom_base_document_layout,,1,1,1,1
+
+access_wiz_salary_structure,wiz.salary.structure,model_wiz_salary_structure,,1,1,1,1
+access_wiz_appraisal_letter,wiz.appraisal.letter,model_wiz_appraisal_letter,,1,1,1,1
+access_wizard_offer_letter,wizard.offer.letter,model_wizard_offer_letter,,1,1,1,1
+access_interview_call_wizard,interview.call.wizard,model_interview_call_wizard,,1,1,1,1
+access_hr_mail_wizard,access.hr.mail.wizard,model_hr_mail_wizard,base.group_user,1,1,1,1
+access_send_joining_email_wizard,access.send.joining.email.wizard,model_send_joining_email_wizard,base.group_user,1,1,1,1

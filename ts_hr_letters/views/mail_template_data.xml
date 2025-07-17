@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="email_template_data_applicant_persnollity_test" model="mail.template">
+            <field name="name">Recruitment: Send Personality Test to Applicant</field>
+            <field name="model_id" ref="ts_hr_letters.model_hr_applicant"/>
+            <field name="subject">Technians || Ready to Discover Your Personality</field>
+           <field name="email_to">{{ object.email_from }}</field>
+            <field name="partner_to">{{ object.partner_id.id or '' }}</field>
+            <field name="body_html" type="html">
+                <p>
+                    Hi
+                    <b>
+                        <t t-esc="object.partner_name or 'Partner'"/>
+                    </b>
+                    ,
+                </p>
+
+                <p>
+                    We’re so excited to have you take part in this next step! 🎯 To help us get to know you better, we’d
+                    love for you to complete a quick personality test.
+                </p>
+
+                <p>
+                    It’s super easy (and kind of fun too!)—just click the link below to get started:
+                </p>
+
+                <p>
+                    <a t-att-href="'https://www.16personalities.com/free-personality-test'" target="_blank">
+                        Complete the Personality Test
+                    </a>
+                </p>
+
+                <p>
+                    Once you’re done, take a quick screenshot of your results and send it back to us. We’re excited to
+                    see your unique personality shine through! 🌟
+                </p>
+
+                <p>
+                    If you have any questions or need help with anything, don’t hesitate to reach out. We’re here to
+                    cheer you on!
+                </p>
+
+                <p>Can’t wait to hear from you.</p>
+
+                <!-- Add user's signature if available -->
+                <t t-if="user.signature">
+                    <p>
+                        <b>
+                            <t t-esc="user.signature"/>
+                        </b>
+                    </p>
+                </t>
+
+                <!-- Add footer with image -->
+
+                <table style="width: 100%;">
+                    <tr>
+                        <td colspan="3">
+                            <a href="#">
+                                <img src="https://technians.com/wp-content/uploads/2024/11/footer.png"
+                                    style="width: 100%; display: block;" alt="Footer Image"/>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </field>
+             <field name="auto_delete" eval="False"/>
+        <field name="lang">{{ object.partner_id.lang or '' }}</field>
+        </record>
+    </data>
+</odoo>
