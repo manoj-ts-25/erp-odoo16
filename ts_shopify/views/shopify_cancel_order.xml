@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="shopify_cancel_order_tree_view" model="ir.ui.view">
+            <field name="name">shopify cancel order tree</field>
+            <field name="model">shopify.cancel.order</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="order_id"/>
+                    <field name="customer_id"/>
+                    <field name="cancelled_at"/>
+                    <field name="cancelled_reason"/>
+                </tree>
+            </field>
+        </record>
+        <record id="shopify_cancel_order_form_view" model="ir.ui.view">
+            <field name="name">shopify cancel order</field>
+            <field name="model">shopify.cancel.order</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                             <group>
+                             <field name="customer_id"/>
+                        <field name="order_id"/>
+                             <field name="cancelled_reason"/>
+                        <field name="cancelled_at"/>
+                        </group>
+                            <group>
+
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_cancel_order" model="ir.actions.act_window">
+            <field name="name">Cancelled Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">shopify.cancel.order</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="shopify_cancel_order" name="Cancel Order" parent="ts_shopify.menu_shopify_orders"
+                  action="action_cancel_order" sequence="3"/>
+    </data>
+</odoo>

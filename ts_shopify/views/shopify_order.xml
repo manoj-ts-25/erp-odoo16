@@ -1,0 +1,79 @@
+<odoo>
+    <data>
+        <!-- Shopify Order Tree View -->
+        <record id="view_shopify_order_tree" model="ir.ui.view">
+            <field name="name">shopify.order.tree</field>
+            <field name="model">shopify.order</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="customer_email"/>
+                    <field name="total_price"/>
+                    <field name="currency"/>
+                    <field name="created_at"/>
+                    <field name="financial_status"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Shopify Order Form View -->
+        <record id="view_shopify_order_form" model="ir.ui.view">
+            <field name="name">shopify.order.form</field>
+            <field name="model">shopify.order</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <header>
+                            <button name="create_sale_order" type="object" string="Create Sale Order"    class="oe_highlight" />
+                        </header>
+                      <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="order_id"/>
+                            <field name="customer_email"/>
+                            <field name="total_price"/>
+                            <field name="currency"/>
+                            <field name="financial_status"/>
+                            <field name="payment_gateway_names"/>
+                        </group>
+                    </group>
+                    <group string="Customer Information">
+                        <group>
+                            <field name="shopify_customer_id"/>
+                        </group>
+                    </group>
+                        <notebook>
+                            <page string="Order Lines">
+                                <field name="shopify_order_line_ids">
+                                    <tree>
+                                        <field name="shopify_product_id"/>
+                                        <field name="product_name"/>
+                                        <field name="quantity"/>
+                                        <field name="price"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+
+
+
+        <menuitem id="menu_shopify_orders" name="Shopify Orders" parent="ts_shopify.shopify_menu" sequence="20"/>
+
+        <!-- Shopify Orders Action -->
+        <record id="action_shopify_order" model="ir.actions.act_window">
+            <field name="name">Shopify Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">shopify.order</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Shopify Order Submenu (Should come after the parent menu) -->
+        <menuitem id="submenu_shopify_orders" name="Orders" parent="menu_shopify_orders" action="action_shopify_order" sequence="2"/>
+    </data>
+</odoo>

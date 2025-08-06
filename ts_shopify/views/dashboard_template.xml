@@ -1,0 +1,22 @@
+<odoo>
+  <template id="shopify_dashboard_template" name="Shopify Dashboard">
+    <div class="o_shopify_dashboard_container">
+      <h2>Shopify Sync Status</h2>
+
+      <div class="o_stat_box">
+        <div class="o_stat_text">
+          <span class="o_stat_label">Customers</span>
+          <span class="o_stat_value" t-esc="customer_count"/>
+        </div>
+        <div class="o_stat_text">
+          <span class="o_stat_label">Orders</span>
+          <span class="o_stat_value" t-esc="order_count"/>
+        </div>
+        <div class="o_stat_text">
+          <span class="o_stat_label">Products</span>
+          <span class="o_stat_value" t-esc="product_count"/>
+        </div>
+      </div>
+    </div>
+  </template>
+</odoo>

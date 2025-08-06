@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template t-name="shopify_dashboard_template">
+        <div class="o_shopify_dashboard_container">
+            <h2>📊 Shopify Dashboard</h2>
+<!--            <div class="o_stat_box">-->
+<!--                <div class="o_stat">-->
+<!--                    <span class="o_stat_label">Customers</span>-->
+<!--                    <span class="o_stat_value"><t t-esc="customer_count"/></span>-->
+<!--                </div>-->
+<!--                <div class="o_stat">-->
+<!--                    <span class="o_stat_label">Orders</span>-->
+<!--                    <span class="o_stat_value"><t t-esc="order_count"/></span>-->
+<!--                </div>-->
+<!--                <div class="o_stat">-->
+<!--                    <span class="o_stat_label">Products</span>-->
+<!--                    <span class="o_stat_value"><t t-esc="product_count"/></span>-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+    </template>
+</odoo>
+

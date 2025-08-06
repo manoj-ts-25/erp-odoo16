@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="shopify_product_tree_view" model="ir.ui.view">
+            <field name="name">shopify.sync.log.tree</field>
+            <field name="model">shopify.sync.log</field>
+            <field name="arch" type="xml">
+                <tree decoration-danger="True">
+                    <field name="name"/>
+<!--                    <field name="variant_id"/>-->
+                    <field name="default_code"/>
+                    <field name="shopify_variant_id"/>
+                    <field name="failure_reason"/>
+                    <field name="sync_date"/>
+                </tree>
+
+            </field>
+        </record>
+
+         <record id="shopify_product_log_action" model="ir.actions.act_window">
+            <field name="name">Shopify Product Log</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">shopify.sync.log</field>
+            <field name="view_mode">tree,kanban,form,search</field>
+        </record>
+
+
+
+
+        <menuitem id="shopify_logs_menu" name="Logs" parent="ts_shopify.shopify_menu"/>
+         <menuitem id="shopify_product_logs" name="Product Logs" parent="shopify_logs_menu" action="shopify_product_log_action"/>
+    </data>
+</odoo>

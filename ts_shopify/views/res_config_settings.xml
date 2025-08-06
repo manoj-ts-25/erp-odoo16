@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form_shopify" model="ir.ui.view">
+        <field name="name">shopify.res.config.settings.view.form.</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="5"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+       <xpath expr="//div[hasclass('settings')]" position="inside">
+            <div class="app_settings_block"
+                 data-string="shopify"
+                 string="Shopify"
+                 data-key="shopify"
+                 style="background : url('/ts_shopify/static/description/icon.png')">
+                 <h2>Instance</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="text-muted">
+                            Configure your Shopify instance here.
+                        </div>
+                        <div class="content-group">
+                            <div class="mt16">
+                                <field name="shopify_instance_id" options="{'no_create': False}"/>
+                            </div>
+                            <div class="mt16">
+                                <button name="action_create_shopify_instance" type="object"
+                                          class="fa fa-arrow-right text-success"  string="Create New Instance" />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <h2>Shopify Odoo Configration</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="text-muted">
+                            <strong>Import Product After Date</strong>
+                            <br/>
+                            System will import only those product which are create after
+                            <br/>
+                            this configured date.
+                        </div>
+                        <div class="content-group">
+                            <div class="mt16">
+                                <field name="last_shopify_sync_date"/>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+
+     <record id="ts_shopify_config_settings_action" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+         <field name="view_id" ref="res_config_settings_view_form_shopify"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'ts_shopify', 'bin_size': False}</field>
+    </record>
+
+</odoo>

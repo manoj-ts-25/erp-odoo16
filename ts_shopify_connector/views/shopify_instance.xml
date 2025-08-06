@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="shopify_instance_tree_view" model="ir.ui.view">
+        <field name="name">shopify.instance.tree.view</field>
+        <field name="model">shopify.instance</field>
+        <field name="arch" type="xml">
+            <tree string="Instance">
+                <field name="name"/>
+                <field name="api_version"/>
+                <field name="is_authenticate"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="shopify_instance_form_view" model="ir.ui.view">
+        <field name="name">shopify.instance.form</field>
+        <field name="model">shopify.instance</field>
+        <field name="arch" type="xml">
+            <form string="Configure Instance" create="false">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" string="Name"/>
+                        <h1>
+                            <field name="name" required="1" placeholder="e.g. Odoo"/>
+                        </h1>
+                    </div>
+
+                    <!-- Alerts -->
+                    <div class="alert alert-danger" role="alert"
+                         attrs="{'invisible': [('is_authenticate', '=', True)]}"
+                         style="margin-bottom: 16px;">
+                        <strong>The connection need to Authenticate.</strong>
+                    </div>
+                    <div class="alert alert-success" role="alert"
+                         attrs="{'invisible': [('is_authenticate', '=', False)]}"
+                         style="margin-bottom: 16px;">
+                        <strong>The connection is authenticated.</strong>
+                    </div>
+
+                    <h2>Shopify Credentials</h2>
+                    <p>This configuration is for connection to Shopify API</p>
+
+                    <!-- Shopify Fields -->
+                    <group>
+                        <group>
+                            <field name="api_key" password="True" placeholder="e.g. 123456789012345"/>
+                            <field name="api_version" placeholder="e.g. 2024-07"/>
+                            <field name="shop_url" placeholder="Insert your custom domain here"/>
+                            <field name="is_import_scheduler"/>
+                            <field name="is_authenticate" invisible="1"/>
+                        </group>
+                    </group>
+
+                    <!-- Button -->
+                    <div class="mt16">
+                        <button name="button_test_connection"
+                                type="object"
+                                string="Test Connection"
+                                class="btn-link text-primary"
+                                icon="fa-arrow-right"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_shopify_instance" model="ir.actions.act_window">
+        <field name="name">Shopify Instance</field>
+        <field name="res_model">shopify.instance</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="menu_shopify"
+              name="shopify"/>
+
+    <menuitem id="menu_dashboard_sub"
+              name="Dashboard"
+              parent="menu_shopify"
+              action="action_shopify_instance"
+              sequence="5"/>
+
+
+<!--    <menuitem id="menu_product"-->
+<!--              name="Product"-->
+<!--              parent="menu_shopify"-->
+<!--              action="action_shopify_instance"-->
+<!--              sequence="10"/>-->
+
+
+    <menuitem id="menu_configuration"
+              name="Configuration"
+              parent="menu_shopify"
+              sequence="15"/>
+
+    <menuitem id="menu_instance"
+              name="Instance"
+              parent="menu_configuration"
+              action="action_shopify_instance"/>
+
+
+</odoo>

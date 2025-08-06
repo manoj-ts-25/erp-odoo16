@@ -1,0 +1,45 @@
+# -*- coding: utf-8 -*-
+# Part of BrowseInfo. See LICENSE file for full copyright and licensing details.
+{
+    "name": "Advance Financial Reports | All in One Dynamic Accounting Reports | Dynamic Financial Report for Community Edition",
+    "version": "16.0.0.0",
+    "category": "Accounting",
+    "summary": "accounting onscreen report accounting HTML report accounting dynamic report advance accounting report General ledger report Trial balance profit loss Balance sheet Partner ageing Tax Report profit and loss report Partner Ledger Aged Receivable Aged payable",
+    "description": """ Financial Reports for community edition Odoo App enables users to generate and print a wide range of dynamic financial reports, including Partner Ledger, Analytic Report, General Ledger, Trial Balance, Aged Partner Balance, Profit and Loss, Balance Sheet. Reports can be exported in both PDF and XLS formats for flexible analysis and documentation. """,
+    "price": 89,
+    "currency": "EUR",
+    "author": "BROWSEINFO",
+    'website': 'https://www.browseinfo.com/demo-request?app=bi_financial_reports_comm&version=16&edition=Community',
+    'depends': ['account'],
+
+    'data': [
+        'security/ir.model.access.csv',
+        'report/report_general_ledger.xml',
+        'report/report_partner_ledger.xml',
+        'report/report_analytic.xml',
+        'report/report_ageing_report.xml',
+        'report/report_balance_sheet.xml',
+        'report/report_profit_loss.xml',
+        'report/report_trial_balance.xml',
+        'views/report_menu.xml',
+        'views/general_ledger_filter_views.xml',
+        'views/partner_ledger_filter_views.xml',
+        'views/analytic_report_filter_views.xml',
+        'views/partner_ageing_filter_views.xml',
+        'views/balance_sheet_filter_views.xml',
+        'views/profit_loss_filter_views.xml',
+        'views/trial_balance_filter_views.xml',
+    ],
+    'assets': {
+        'web.assets_backend': [
+            'bi_financial_reports_comm/static/src/js/*.js',
+            'bi_financial_reports_comm/static/src/xml/*.xml',
+            'bi_financial_reports_comm/static/src/css/template.css',
+        ],
+    },
+    'license':'OPL-1',
+    'installable': True,
+    'auto_install': False,
+    "live_test_url": 'https://www.browseinfo.com/demo-request?app=bi_financial_reports_comm&version=16&edition=Community',
+    "images": ["static/description/Banner.gif"],
+}

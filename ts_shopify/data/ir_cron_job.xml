@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ir_cron_fetch_product" model="ir.cron">
+        <field name="name">Shopify: Fetch product</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model_id" ref="model_base_shopify"/>
+        <field name="code">model.search([]).get_shopify_products()</field>
+        <field name="state">code</field>
+    </record>
+
+    <record id="ir_cron_fetch_order" model="ir.cron">
+        <field name="name">Shopify: Fetch order</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model_id" ref="model_shopify_order"/>
+        <field name="code">model.fetch_shopify_orders()</field>
+        <field name="state">code</field>
+    </record>
+
+    <record id="ir_cron_fetch_stock" model="ir.cron">
+        <field name="name">Shopify: Fetch Stock</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model_id" ref="model_base_shopify"/>
+        <field name="code">model.import_shopify_stock_to_odoo()</field>
+        <field name="state">code</field>
+    </record>
+
+
+    <record id="ir_cron_sync_product_in_inventory" model="ir.cron">
+        <field name="name">Shopify: Sync Product In Inventory</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model_id" ref="model_shopify_product"/>
+        <field name="code">model.search([]).create_inventory_product()</field>
+        <field name="state">code</field>
+    </record>
+
+
+    <record id="ir_Crom_sync_stock_with_product" model="ir.cron">
+        <field name="name">Shopify: sync Stock In Inventory</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model_id" ref="model_shopify_product"/>
+        <field name="code">model.search([]).create_inventory_product()</field>
+        <field name="state">code</field>
+    </record>
+
+    <record id="ir_cron_sync_cancel_order" model="ir.cron">
+        <field name="name">Shopify: Sync Cancel Order</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model_id" ref="model_shopify_cancel_order"/>
+        <field name="code">model.search([])._fetch_cancel_order()</field>
+        <field name="state">code</field>
+    </record>
+
+ <record id="ir_cron_sync_product_stock" model="ir.cron">
+        <field name="name">Shopify: Sync Product Stock</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model_id" ref="model_base_shopify"/>
+        <field name="code">model.search([]).import_shopify_stock_to_odoo()</field>
+        <field name="state">code</field>
+    </record>
+
+    <record id="ir_cron_export_product" model="ir.cron">
+        <field name="name">Shopify: Export Odoo Products</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model_id" ref="model_shopify_product"/>
+        <field name="code">model.search([]).create_shopify_product()</field>
+        <field name="state">code</field>
+    </record>
+</odoo>

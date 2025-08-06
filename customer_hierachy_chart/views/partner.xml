@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_partner_view_tree" model="ir.ui.view">
+        <field name="name">Res Partner</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <button name="open_child_view" type="object" string="View Child" class="oe_highlight" attrs="{'invisible':[('parent_id','!=',False)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="contacts.action_contacts">
+        <field name="name">Res Partner</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="context">{'default_is_company': True}</field>
+        <field name="domain">[('is_parent','=', True)]</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form,graph,pivot</field>
+        <field name="view_id" ref="res_partner_view_tree"/>
+        <field name="search_view_id" ref="base.view_res_partner_filter"/>
+    </record>
+</odoo>

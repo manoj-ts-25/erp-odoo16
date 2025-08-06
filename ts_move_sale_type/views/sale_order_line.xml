@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="sale_order_line_inherited_views_for_move_type" model="ir.ui.view">
+        <field name="name">sale.order.line</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='product_template_id']" position="before">
+                <field name="sale_type"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

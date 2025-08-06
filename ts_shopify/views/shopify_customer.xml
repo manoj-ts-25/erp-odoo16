@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="shopify_customer_form_view" model="ir.ui.view">
+            <field name="name">shopify.customer.form</field>
+            <field name="model">customer.shopify</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="customer_name"/>
+                                <field name="customer_email"/>
+                                <field name="customer_phone"/>
+                            </group>
+                            <group>
+                                <field name="billing_address1"/>
+                                <field name="billing_city"/>
+                            </group>
+                            <group>
+                                <field name="billing_state"/>
+                                <field name="billing_zip"/>
+                                <field name="billing_country"/>
+                            </group>
+                        </group>
+
+                    </sheet>
+                </form>
+
+            </field>
+        </record>
+
+
+         <record id="shopify_customer_tree_view" model="ir.ui.view">
+            <field name="name">shopify.customer.tree</field>
+            <field name="model">customer.shopify</field>
+            <field name="arch" type="xml">
+                <tree>
+                     <field name="customer_name"/>
+                    <field name="customer_email"/>
+                                <field name="customer_phone"/>
+                </tree>
+            </field>
+         </record>
+
+        <record id="action_shopify_customer" model="ir.actions.act_window">
+            <field name="name">Shopify Customer</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">customer.shopify</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="shopify_customer" name="Customer" sequence="15" parent="ts_shopify.shopify_menu"/>
+
+        <menuitem id="sub_shopify_customer" name="Customer" sequence="2" parent="ts_shopify.shopify_customer"
+                  action="action_shopify_customer"/>
+    </data>
+</odoo>

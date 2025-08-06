@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="product_template_only_form_view" model="ir.ui.view">
+        <field name="name">product.template.only.form.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='barcode']" position="after">
+                <field name="shopify_id"/>
+                <field name="description_sale"/>
+                <field name="shopify_status" />
+                <field name="shopify_published" widget="boolean_toggle">
+                         <attrs>
+            <attribute name="class" eval="'text-success' if shopify_status == 'active' else 'text-danger'"/>
+             </attrs>
+                </field>
+<!--                <button name="create_inventory_shopify_product" type="object" string="create_inventory_shopify_product"/>-->
+            </xpath>
+        </field>
+    </record>
+
+    </data>
+</odoo>

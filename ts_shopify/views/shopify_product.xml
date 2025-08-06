@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="shopify_product_form_view" model="ir.ui.view">
+            <field name="name">shopify.product.form</field>
+            <field name="model">shopify.product</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="create_shopify_product" string="Create shopify product" type="object"
+                                class="oe_highlight"/>
+                        <button name="create_inventory_product" string="Create Inventory product" type="object"
+                                class="oe_highlight"/>
+                        <button name="update_images" string=" Update Images" type="object" class="oe_highlight"/>
+                        <button name="update_stock" string=" Update Stock" type="object" class="oe_highlight"/>
+
+                    </header>
+                    <sheet>
+                        <field name="image_1920" widget="image" class="oe_avatar"/>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="shopify_id"/>
+                                <field name="list_price"/>
+                                <field name="vendor"/>
+                                <field name="product_type"/>
+                                <field name="tags"/>
+                                <field name="status"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="product Details">
+                                <field name="varient_product_ids" mode="tree">
+                                     <tree decoration-success="status_shopify == 'success'"
+                                        decoration-danger="status_shopify != 'success'">
+                                        <field name="product_tmplt_id"/>
+                                        <field name="shopify_variant_id"/>
+                                        <field name="default_code"/>
+                                        <field name="list_price"/>
+                                        <field name="shopify_inventory"/>
+                                        <field name="weight"/>
+                                        <field name="weight_unit"/>
+                                        <field name="barcode"/>
+                                        <field name="status_shopify"  decoration-success="status_shopify == 'success'"
+                                                                       decoration-danger="status_shopify == 'failed'" class="oe_highlight"/>
+<!--                                        <field name="sku_code"/>-->
+                                        <!--                                        <field name="cost_per_item"/>-->
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="Product Description">
+                                <field name="description"/>
+                            </page>
+                            <page name="Product Variant">
+                                <field name="attribute_ids" mode="tree">
+                                    <tree>
+                                        <field name="name"/>
+<!--                                        <field name="product_id"/>-->
+                                        <field name="value_ids" widget="many2many_tags"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="shopify_product_tree_view" model="ir.ui.view">
+            <field name="name">shopify.product.tree</field>
+            <field name="model">shopify.product</field>
+            <field name="arch" type="xml">
+
+                <tree>
+                    <field name="name"/>
+                    <field name="shopify_id"/>
+                    <field name="list_price"/>
+                </tree>
+            </field>
+        </record>
+
+
+         <record id="product_variant_easy_edit_view_shopify_inherit" model="ir.ui.view">
+            <field name="name">product.product.product.view.form.easy.bom.inherit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_variant_easy_edit_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='default_code']" position="after">
+                    <field name="shopify_variant_id"/>
+                </xpath>
+
+            </field>
+         </record>
+
+
+        <record id="shopify_product_action" model="ir.actions.act_window">
+            <field name="name">Shopify Product</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">shopify.product</field>
+            <field name="view_mode">tree,kanban,form,search</field>
+        </record>
+
+        <menuitem id="shopify_product_list" name="Shopify Product" parent="ts_shopify.shopify_menu" action="shopify_product_action" />
+        <menuitem id="shopify_config_settings_menu"
+                  name="Settings"
+                  parent="shopify_config_menu"
+                  action="ts_shopify.ts_shopify_config_settings_action"
+                  groups="base.group_system"
+                  sequence="0"/>
+    </data>
+</odoo>

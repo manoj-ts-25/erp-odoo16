@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_base_shopify_form" model="ir.ui.view">
+            <field name="name">base.shopify.form</field>
+            <field name="model">base.shopify</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                    </header>
+                    <sheet>
+                        <field name="image" widget="image" class="oe_avatar"/>
+                        <group>
+                            <group>
+                                <field name="name" string="Instance Name"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page name="Configration">
+                                <group>
+                                    <group>
+                                        <field name="website_url"/>
+                                        <field name="shopify_api_token"/>
+                                        <field name="api_version"/>
+                                    </group>
+                                    <group>
+                                        <field name="shopify_secret_key"/>
+                                        <field name="shopify_api_key"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="settings">
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+
+        <record id="shopify_menu_action" model="ir.actions.act_window">
+            <field name="name">Shopify</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">base.shopify</field>
+            <field name="view_mode">tree,kanban,form,search</field>
+        </record>
+
+
+        <menuitem id="shopify_menu"
+                  name="Shopify"
+        />
+
+
+
+        <menuitem id="shopify_config_menu" name="Configuration" parent="shopify_menu" sequence="100"
+        />
+        <menuitem id="shopify_instance" name="shopify instance" parent="shopify_config_menu"
+                  action="shopify_menu_action"/>
+
+    </data>
+</odoo>

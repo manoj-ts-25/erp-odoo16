@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="general_ledger_action" model="ir.actions.client">
+        <field name="name">General Ledger</field>
+        <field name="tag">general_ledger_report_tag</field>
+        <field name="context">{'report': 'general_ledger'}</field>
+    </record>
+
+    <record id="partner_ledger_action" model="ir.actions.client">
+        <field name="name">Partner Ledger</field>
+        <field name="tag">partner_ledger_report_tag</field>
+        <field name="context">{'report': 'partner_ledger'}</field>
+    </record>
+
+    <record id="analytic_report_action" model="ir.actions.client">
+        <field name="name">Analytic Account Report</field>
+        <field name="tag">analytic_report_tag</field>
+        <field name="context">{'report': 'analytic_report'}</field>
+    </record>
+
+    <record id="trial_balance_action" model="ir.actions.client">
+        <field name="name"> Trial Balance</field>
+        <field name="tag">trial_balance_report_tag</field>
+        <field name="context">{'report': 'trial_balance'}</field>
+    </record>
+
+    <record id="partner_ageing_report_action" model="ir.actions.client">
+        <field name="name">Partner Ageing</field>
+        <field name="tag">partner_ageing_report_tag</field>
+        <field name="context">{'report': 'partner_ageing'}</field>
+    </record>
+
+    <record id="profit_and_loss_action" model="ir.actions.client">
+        <field name="name"> Profit and Loss</field>
+        <field name="tag">profit_loss_report_tag</field>
+        <field name="context">{'report': 'profit_and_loss'}</field>
+    </record>
+
+    <record id="balance_sheet_action" model="ir.actions.client">
+        <field name="name">Balance Sheet</field>
+        <field name="tag">balance_sheet_report_tag</field>
+        <field name="context">{'report': 'balance_sheet'}</field>
+    </record>
+
+    <menuitem id="menu_financial_reports" name="Financial Reports" parent="account.menu_finance_reports" sequence="10">
+        <menuitem id="menu_general_ledger" name="General Ledger" action="general_ledger_action"/>
+        <menuitem id="menu_partner_ledger" name="Partner Ledger" action="partner_ledger_action"/>
+        <menuitem id="menu_analytic_report" name="Analytic Account Report" action="analytic_report_action"/>
+        <menuitem id="menu_trial_balance" name="Trial Balance" action="trial_balance_action"/>
+        <menuitem id="menu_partner_ageing_report" name="Partner Ageing" action="partner_ageing_report_action"/>
+        <menuitem id="menu_profit_and_loss" name="Profit and Loss" action="profit_and_loss_action"/>
+        <menuitem id="menu_balance_sheet" name="Balance Sheet" action="balance_sheet_action"/>
+    </menuitem>
+</odoo>

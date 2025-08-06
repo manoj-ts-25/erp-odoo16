@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="child_contacts_form_views" model="ir.ui.view">
+        <field name="name">Child  Contacts</field>
+        <field name="model">child.contacts</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="child_ids" widget="Many2many_tags"/>
+                </sheet>
+                <footer>
+                    <button string="Cancel" class="btn btn-secondary" special="cancel" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+     <record id="action_child_contact" model="ir.actions.act_window">
+        <field name="name">Child  Contacts</field>
+         <field name="type">ir.actions.act_window</field>
+        <field name="res_model">child.contacts</field>
+        <field name="view_mode">form</field>
+         <field name="target">new</field>
+     </record>
+</odoo>

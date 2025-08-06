@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+       <record id="shopify_product_varient_tree_view" model="ir.ui.view">
+            <field name="name">shopify.product.tree</field>
+            <field name="model">shopify.product.varient</field>
+            <field name="arch" type="xml">
+
+               <tree decoration-success="status_shopify == 'success'"
+                                        decoration-danger="status_shopify != 'success'" editable="top">
+                                        <field name="product_tmplt_id" readonly="1"/>
+                                        <field name="shopify_variant_id" readonly="1"/>
+                                        <field name="default_code" readonly="1"/>
+                                        <field name="list_price" readonly="1"/>
+                                        <field name="shopify_inventory"/>
+                                        <field name="weight" readonly="1"/>
+                                        <field name="weight_unit" readonly="1"/>
+                                        <field name="barcode" readonly="1"/>
+                                        <field name="status_shopify"  decoration-success="status_shopify == 'success'"
+                                                                       decoration-danger="status_shopify == 'failed'" class="oe_highlight"/>
+<!--                                        <field name="sku_code"/>-->
+                                        <!--                                        <field name="cost_per_item"/>-->
+                                    </tree>
+            </field>
+        </record>
+
+
+
+        <record id="shopify_product_varient_action" model="ir.actions.act_window">
+            <field name="name">Shopify Product Variant</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">shopify.product.varient</field>
+            <field name="view_mode">tree,kanban,form,search</field>
+        </record>
+
+         <menuitem id="shopify_product_varient_list" name="Shopify Product Varient" parent="ts_shopify.shopify_product_list" action="shopify_product_varient_action" />
+    </data>
+</odoo>
